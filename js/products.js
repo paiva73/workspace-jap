@@ -5,23 +5,20 @@ fetch (API_URL)
     .then(response =>{
         return response.json();
     })
-    .then(data=>{
+    .then(data => {
         for (const product of data.products) {
             containerProducts.innerHTML += `
-            <div>
-                <div>
-                    <img src="${product.image}"/>
-                </div>
-                <div>
-                    <h3>${product.name} - ${product.currency} ${product.cost}</h3>
-                    <p>${product.description}</p>
-                </div>
-                <div>
-                    <small>${product.soldCount} vendidos </small>
+            <div class="row list-group-item d-flex justify-content-start">
+                <div class="col-3"> <img src="${product.image}" class="img-thumbnail img-fluid"/> </div>
+                    <div class="col-8">
+                        <h3>${product.name} - ${product.currency} ${product.cost}</h3>
+                        <p>${product.description}</p>
+                    </div>
+                <div class="col-1 text-muted p-0"> 
+                    <small>${product.soldCount} vendidos</small>
                 </div>
             </div>
             `
-            
         }
     })
     .catch(error =>{
