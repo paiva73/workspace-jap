@@ -9,13 +9,15 @@ eye.addEventListener("click", function() {
   }
 })
 
+let formulario = document.getElementById("formularioLogin")
+formulario.addEventListener("submit", function(event) {
+  event.preventDefault();                                    //Esta funcion nativa no entiendo que hace en realidad, es como que evita que la pagina se recargue cuando se presiona el boton.
 
-/* Antes teniamos esta funcion para el checkbox */
-/*function contrasena() {
-    var password = document.getElementById("passInput");
-    if (password.type === "password") {
-      password.type = "text";
-    } else {
-      password.type = "password";
-    }
-  }*/
+  const username = document.getElementById("email").value;
+  const password = document.getElementById("passInput").value;
+
+  //Acá deberíamos hacer una solicitud al servidor correspondiente para verificar las credenciales e iniciar la sesión correspondiente, pero como la letra pide inicio de sesion ficticia omitimos la solicitud.
+
+  window.location.href = "index.html"; //
+
+})
