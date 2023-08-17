@@ -12,3 +12,10 @@ document.addEventListener("DOMContentLoaded", function(){
         window.location = "products.html"
     });
 });
+function verificarExistencia(){
+    const hayDatos = JSON.parse(localStorage.getItem('datosUsuario'));
+    if (!hayDatos) {
+        window.location.href = "login.html"
+    }
+}
+verificarExistencia();
