@@ -22,17 +22,16 @@
       </div>
       
       <div id="divLogin">
-        <form action="Login">
+        <form action="Login" id="formularioLogin">
           <input type="email" placeholder="Email" id="email" class="camposlogin" name="email" required>
           <br>
 
           <div class="password-container">
           <input type="password" placeholder="Contraseña" name="contraseña" id="passInput" class="camposlogin" title="Debe contener 1 mayúscula, 1 minúscula y 1 número" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*" minlength="8" required > <br>
           <i class="bi bi-eye-slash" id="togglePassword"></i>
-          <!--<input type="checkbox" onclick="contrasena()"> Mostrar contraseña--> <!-- Antes teniamos este checkbox-->
           </div>
 
-          <input type="checkbox" id="Recordarme" name="recordarme" required>
+          <input type="checkbox" id="Recordarme" name="recordarme">
           <label for="Recordarme">Recordarme</label>
           <br></br>
           <input type="submit" id="botonlogin" value="Iniciar Sesión" name="iniciar_sesion">
