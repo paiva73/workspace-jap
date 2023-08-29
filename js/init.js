@@ -39,3 +39,11 @@ let getJSONData = function(url){
         return result;
     });
 }
+
+const navbarUserElement = document.getElementById('navbarUser');
+const UsuarioEnJson = localStorage.getItem('datosUsuario');
+const userDataObj = JSON.parse(UsuarioEnJson);
+
+if (UsuarioEnJson) {
+    navbarUserElement.textContent = userDataObj.username;
+}
