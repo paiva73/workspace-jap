@@ -1,4 +1,7 @@
-const API_URL = "https://japceibal.github.io/emercado-api/cats_products/101.json";
+const catYN = document.getElementById("categorYName"); //ESTA VARIABLE SE USA EN DATA PARA DARLE NOMBRE A LA CATEGORIA
+
+const cat = localStorage.getItem("catID");
+const API_URL = `https://japceibal.github.io/emercado-api/cats_products/${cat}.json`
 const containerProducts = document.getElementById("cat-list-container-products");
 const sortAsc = document.getElementById('sortAsc');
 const sortDesc = document.getElementById('sortDesc');
@@ -24,4 +27,10 @@ function showProducts(products){
         </div>
         `
     }
+}
+//Función para el boton limpiar.
+function clear(products){
+        rangeFilterCountMin.value = '';
+        rangeFilterCountMax.value = '';
+        showProducts(products);
 }
