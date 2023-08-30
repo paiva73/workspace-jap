@@ -41,9 +41,9 @@ let getJSONData = function(url){
 }
 
 const navbarUserElement = document.getElementById('navbarUser');
-const UsuarioEnJson = localStorage.getItem('datosUsuario');
-const userDataObj = JSON.parse(UsuarioEnJson);
+const usuarioEnJson = localStorage.getItem('datosUsuario');
+const userDataObj = JSON.parse(usuarioEnJson);
 
-if (UsuarioEnJson) {
+if (usuarioEnJson) {
     navbarUserElement.textContent = userDataObj.username;
 }
