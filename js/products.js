@@ -25,3 +25,9 @@ function showProducts(products){
         `
     }
 }
+//Función para el boton limpiar.
+function clear(products){
+        rangeFilterCountMin.value = '';
+        rangeFilterCountMax.value = '';
+        showProducts(products);
+}
