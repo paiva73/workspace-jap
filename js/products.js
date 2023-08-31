@@ -28,6 +28,44 @@ function showProducts(products){
         `
     }
 }
+
+   
+
+//Esta función tiene que filtrar los productos por precio
+
+
+function applyAndShowFilter(products) {
+    const minPrice = rangeFilterCountMin.value;
+    const maxPrice = rangeFilterCountMax.value;
+    let filteredProducts = products;
+
+    //Si es NaN, devuelve True y queremos que devuelva False cuando no es un número lo ingresado, por lo tanto agreguamos un !
+    if (!isNaN(minPrice) && !isNaN(maxPrice)){
+        filteredProducts = products.filter((product => product.price >= minPrice && product.price <= maxPrice));
+    }
+
+
+    //A continuación vamos a crear el sort para que filtre por precio y cantidad vendidos.
+    if (sortAsc.checked){
+        filteredProducts.sort((a,b) => a.cost - b.cost);
+        
+    }else if (sortDesc.checked){
+        filteredProducts.sort((a,b) => b.cost - a.cost);
+
+    }else if (sortByCount.checked){
+        filteredProducts.sort((a,b) => b.soldCount - a.soldCount);
+    }
+
+    
+ showProducts(filteredProducts);
+}
+//
+
+
+
+
+
+
 //Función para el boton limpiar.
 function clear(products){
         rangeFilterCountMin.value = '';
