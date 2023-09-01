@@ -9,8 +9,12 @@ const rangeFilterCountMin = document.getElementById("rangeFilterCountMin");
 const rangeFilterCountMax = document.getElementById("rangeFilterCountMax");
 const rangeFilterCount = document.getElementById("rangeFilterCount");
 const clearRangeFilter = document.getElementById("clearRangeFilter");
+const searchProduct = document.getElementById("searchProduct");
+
 //Función que muestra los productos, toma un array como parámetro, el array "data.products" que traemos de la API.
 document.addEventListener("DOMContentLoaded", () => {
+
+  let data;
   function showProducts(products) {
     containerProducts.innerHTML = "";
     for (const product of products) {
@@ -30,7 +34,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   //Esta función tiene que filtrar los productos por precio
-
   function applyAndShowFilter(products) {
         const minPrice = parseInt(rangeFilterCountMin.value);
         const maxPrice = parseInt(rangeFilterCountMax.value);
@@ -52,7 +55,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         showProducts(filteredProducts);
     }
-  //
 
   //Función para el boton limpiar.
   function clear(products) {
@@ -65,18 +67,30 @@ document.addEventListener("DOMContentLoaded", () => {
     .then((response) => {
       return response.json();
     })
-    .then((data) => {
+    .then((responseData) => {
+      data = responseData;
       categoryName.innerText = data.catName;
       sortAsc.addEventListener("click", () => applyAndShowFilter(data.products));
       sortDesc.addEventListener("click", () => applyAndShowFilter(data.products));
       sortByCount.addEventListener("click", () => applyAndShowFilter(data.products));
       rangeFilterCount.addEventListener("click", () => applyAndShowFilter(data.products));
       clearRangeFilter.addEventListener("click", () => clear(data.products));
-
       showProducts(data.products);
     })
-
     .catch((error) => {
       console.log("Error", error);
     });
+
+  // Funcionaliad de Busqueda
+  searchProduct.addEventListener("input", () => {
+    const searchQuery = searchProduct.value.toLowerCase().trim();
+    if (data) { // Check if data is defined
+      const filteredProducts = data.products.filter((product) => {
+        const productName = product.name.toLowerCase();
+        const productDescription = product.description.toLowerCase();
+        return productName.includes(searchQuery) || productDescription.includes(searchQuery);
+      });
+      applyAndShowFilter(filteredProducts);
+    }
+  });
 });
