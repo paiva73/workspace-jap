@@ -34,7 +34,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   //Esta función tiene que filtrar los productos por precio
-
   function applyAndShowFilter(products) {
         const minPrice = parseInt(rangeFilterCountMin.value);
         const maxPrice = parseInt(rangeFilterCountMax.value);
@@ -56,7 +55,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         showProducts(filteredProducts);
     }
-  //
 
   //Función para el boton limpiar.
   function clear(products) {
