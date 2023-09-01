@@ -69,8 +69,8 @@ document.addEventListener("DOMContentLoaded", () => {
     .then((response) => {
       return response.json();
     })
-    .then((responseData) => { // Change the variable name here
-      data = responseData; // Assign responseData to the data variable
+    .then((responseData) => {
+      data = responseData;
       categoryName.innerText = data.catName;
       sortAsc.addEventListener("click", () => applyAndShowFilter(data.products));
       sortDesc.addEventListener("click", () => applyAndShowFilter(data.products));
