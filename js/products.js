@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return response.json();
     })
     .then((responseData) => {
-      data = responseData; 
+      data = responseData;
       categoryName.innerText = data.catName;
       sortAsc.addEventListener("click", () => applyAndShowFilter(data.products));
       sortDesc.addEventListener("click", () => applyAndShowFilter(data.products));
