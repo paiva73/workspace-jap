@@ -1,20 +1,20 @@
-const catYN = document.getElementById("categorYName"); //ESTA VARIABLE SE USA EN DATA PARA DARLE NOMBRE A LA CATEGORIA
-
+const categoryName = document.getElementById("categoryName"); //ESTA VARIABLE SE USA EN DATA PARA DARLE NOMBRE A LA CATEGORIA
 const cat = localStorage.getItem("catID");
-const API_URL = `https://japceibal.github.io/emercado-api/cats_products/${cat}.json`
+const API_URL = `https://japceibal.github.io/emercado-api/cats_products/${cat}.json`;
 const containerProducts = document.getElementById("cat-list-container-products");
-const sortAsc = document.getElementById('sortAsc');
-const sortDesc = document.getElementById('sortDesc');
-const sortByCount = document.getElementById('sortByCount');
-const rangeFilterCountMin = document.getElementById('rangeFilterCountMin');
-const rangeFilterCountMax = document.getElementById('rangeFilterCountMax');
-const rangeFilterCount = document.getElementById('rangeFilterCount');
-const clearRangeFilter = document.getElementById('clearRangeFilter');
+const sortAsc = document.getElementById("sortAsc");
+const sortDesc = document.getElementById("sortDesc");
+const sortByCount = document.getElementById("sortByCount");
+const rangeFilterCountMin = document.getElementById("rangeFilterCountMin");
+const rangeFilterCountMax = document.getElementById("rangeFilterCountMax");
+const rangeFilterCount = document.getElementById("rangeFilterCount");
+const clearRangeFilter = document.getElementById("clearRangeFilter");
 //Función que muestra los productos, toma un array como parámetro, el array "data.products" que traemos de la API.
-function showProducts(products){
-    containerProducts.innerHTML = '';
+document.addEventListener("DOMContentLoaded", () => {
+  function showProducts(products) {
+    containerProducts.innerHTML = "";
     for (const product of products) {
-        containerProducts.innerHTML += `
+      containerProducts.innerHTML += `
         <div class="row list-group-item d-flex justify-content-start">
             <div class="col-3"> <img src="${product.image}" class="img-thumbnail img-fluid"/> </div>
                 <div class="col-8">
@@ -25,50 +25,58 @@ function showProducts(products){
                 <small>${product.soldCount} vendidos</small>
             </div>
         </div>
-        `
+        `;
     }
-}
+  }
 
-   
+  //Esta función tiene que filtrar los productos por precio
 
-//Esta función tiene que filtrar los productos por precio
+  function applyAndShowFilter(products) {
+        const minPrice = parseInt(rangeFilterCountMin.value);
+        const maxPrice = parseInt(rangeFilterCountMax.value);
+        let filteredProducts = products;
 
+        //Si es NaN, devuelve True y queremos que devuelva False cuando no es un número lo ingresado, por lo tanto agreguamos un !
+        if (!isNaN(minPrice) && !isNaN(maxPrice)) {
+            filteredProducts = products.filter((product) => product.cost >= minPrice && product.cost <= maxPrice);
+        }
 
-function applyAndShowFilter(products) {
-    const minPrice = rangeFilterCountMin.value;
-    const maxPrice = rangeFilterCountMax.value;
-    let filteredProducts = products;
+        //A continuación vamos a crear el sort para que filtre por precio y cantidad vendidos.
+        if (sortAsc.checked) {
+        filteredProducts.sort((a, b) => a.cost - b.cost);
+        } else if (sortDesc.checked) {
+        filteredProducts.sort((a, b) => b.cost - a.cost);
+        } else if (sortByCount.checked) {
+        filteredProducts.sort((a, b) => b.soldCount - a.soldCount);
+        }
 
-    //Si es NaN, devuelve True y queremos que devuelva False cuando no es un número lo ingresado, por lo tanto agreguamos un !
-    if (!isNaN(minPrice) && !isNaN(maxPrice)){
-        filteredProducts = products.filter((product => product.price >= minPrice && product.price <= maxPrice));
+        showProducts(filteredProducts);
     }
+  //
 
+  //Función para el boton limpiar.
+  function clear(products) {
+    rangeFilterCountMin.value = "";
+    rangeFilterCountMax.value = "";
+    showProducts(products);
+  }
 
-    //A continuación vamos a crear el sort para que filtre por precio y cantidad vendidos.
-    if (sortAsc.checked){
-        filteredProducts.sort((a,b) => a.cost - b.cost);
-        
-    }else if (sortDesc.checked){
-        filteredProducts.sort((a,b) => b.cost - a.cost);
+  fetch(API_URL)
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      categoryName.innerText = data.catName;
+      sortAsc.addEventListener("click", () => applyAndShowFilter(data.products));
+      sortDesc.addEventListener("click", () => applyAndShowFilter(data.products));
+      sortByCount.addEventListener("click", () => applyAndShowFilter(data.products));
+      rangeFilterCount.addEventListener("click", () => applyAndShowFilter(data.products));
+      clearRangeFilter.addEventListener("click", () => clear(data.products));
 
-    }else if (sortByCount.checked){
-        filteredProducts.sort((a,b) => b.soldCount - a.soldCount);
-    }
+      showProducts(data.products);
+    })
 
-    
- showProducts(filteredProducts);
-}
-//
-
-
-
-
-
-
-//Función para el boton limpiar.
-function clear(products){
-        rangeFilterCountMin.value = '';
-        rangeFilterCountMax.value = '';
-        showProducts(products);
-}
+    .catch((error) => {
+      console.log("Error", error);
+    });
+});
