@@ -84,7 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Funcionaliad de Busqueda
   searchProduct.addEventListener("input", () => {
     const searchQuery = searchProduct.value.toLowerCase().trim();
-    if (data) { // Check if data is defined
+    if (data) {
       const filteredProducts = data.products.filter((product) => {
         const productName = product.name.toLowerCase();
         const productDescription = product.description.toLowerCase();
