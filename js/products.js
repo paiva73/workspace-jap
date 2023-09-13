@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
     containerProducts.innerHTML = "";
     for (const product of products) {
       containerProducts.innerHTML += `
-        <div class="row list-group-item d-flex justify-content-start" onclick="setProductID(${product.id})">
+        <div class="row list-group-item d-flex justify-content-start cursor-active" onclick="setProductID(${product.id})">
             <div class="col-3"> <img src="${product.image}" class="img-thumbnail img-fluid"/> </div>
                 <div class="col-8">
                     <h3>${product.name} - ${product.currency} ${product.cost}</h3>
