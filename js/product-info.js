@@ -1,6 +1,10 @@
 const productID = localStorage.getItem("productID");
 const API_URL = `https://japceibal.github.io/emercado-api/products/${productID}.json`;
+const API_URL_COMMENTS = `https://japceibal.github.io/emercado-api/products_comments/${productID}.json`;
 const containerProduct = document.getElementById("containerProductInfo");
+const containerComments = document.getElementById("containerComments");
+
+
 document.addEventListener("DOMContentLoaded", () => {
     obtainAndShowProductsInfo(API_URL)
 })
@@ -49,8 +53,36 @@ function showImages(images) {
     let img = "";
 
     for (const image of images) {
-        img += `<div class="col-12 col-md-6 col-lg-3 mb-3"><img src="${image}" class="img-thumbnail img-fluid"></div>`
+      img += `<div class="col-12 col-md-6 col-lg-3 mb-3"><img src="${image}" class="img-thumbnail img-fluid"></div>`
     }
     return img;
 }
-  
+
+
+function showComments(comments) {
+  let currentDate = new Date().toLocaleString();
+
+  for (const comment of comments) {
+  containerComments.innerHTML += ` 
+  <div>
+    <div>
+      <p><strong> ${comment.user} </strong> - <small> ${currentDate}</small> - ${showStars(comment.score)} </p>
+    </div>
+    <p> ${comment.description} </p>
+  </div>
+  `
+  }
+}
+
+function showStars(quantity){
+  let stars = "";
+
+  for (let i = 0; i < quantity; i++) {
+    stars += `<span class="fa fa-star checked"></span>`;
+  }
+
+  for (let i = quantity; i < 5; i++) {
+    stars += `<span class="fa fa-star"></span>`;
+  }
+  return stars;
+}
