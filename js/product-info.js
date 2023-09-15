@@ -6,10 +6,11 @@ const containerComments = document.getElementById("containerComments");
 
 
 document.addEventListener("DOMContentLoaded", () => {
-    obtainAndShowProductsInfo(API_URL)
+    getAndShowProductsInfo(API_URL)
+    getAndShowComments(API_URL_COMMENTS)
 })
 // Hacer la solicitud fetch a la API
-async function obtainAndShowProductsInfo(url) {
+async function getAndShowProductsInfo(url) {
     try {
         const response = await fetch(url);
         const data = await response.json();
@@ -64,11 +65,11 @@ function showComments(comments) {
 
   for (const comment of comments) {
   containerComments.innerHTML += ` 
-  <div>
-    <div>
-      <p><strong> ${comment.user} </strong> - <small> ${currentDate}</small> - ${showStars(comment.score)} </p>
+  <div class="media-body border border-2 px-3 py-2"> 
+    <div class="d-flex align-items-center">
+      <p class="mb-0"><strong> ${comment.user} </strong> - <small> ${currentDate}</small> - ${showStars(comment.score)} </p>
     </div>
-    <p> ${comment.description} </p>
+    <p class="mb-0"> ${comment.description} </p>
   </div>
   `
   }
@@ -86,3 +87,15 @@ function showStars(quantity){
   }
   return stars;
 }
+
+// Fetch para mostrar comentarios
+async function getAndShowComments(url) {
+  try {
+      const response = await fetch(url);
+      const data = await response.json();
+      showComments(data);
+  } catch (error) {
+      console.log("error", error);
+  }
+}
+
