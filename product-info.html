@@ -39,9 +39,27 @@
   <main>
     <div class="container">
       <div class="container" id="containerProductInfo"></div>
-      <div class="media px-3 " id="containerComments">
+      <div class="container media" id="containerComments">
         <h2 class="h4">Comentarios</h2>
       </div> 
+      <div class="container mt-4">
+        <h4>Comentar</h4>
+        <form>
+            <div class="form-group col-12 col-md-6">
+                <label for="comment" class="mb-2">Tu opinión:</label>
+                <textarea class="form-control mb-3" id="comment" rows="3"></textarea>
+                <label for="options" class="mb-2">Tu puntuación:</label>
+                <select class="form-select w-25 mb-2" id="options" name="options">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </div>
+            <button  type="button" class="btn btn-primary" id="btnSend">Enviar</button>
+        </form>
+    </div>
     </div>
   </main>
   <footer class="text-muted">
