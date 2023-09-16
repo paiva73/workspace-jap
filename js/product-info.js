@@ -109,14 +109,16 @@ function addComment() {
   const options = document.getElementById("options");
   const selectedRating = options.options[options.selectedIndex].value;
 
+  const username = JSON.parse(localStorage.getItem('datosUsuario')).username;
+
   if (commentText) {
-      const currentDate = new Date().toLocaleString();
-      const newComment = {
-          user: "Usuario Anonimo",
-          score: selectedRating,
-          description: commentText
-      };
-      showComments([newComment]);
-      document.getElementById("comment").value = "";
+    const currentDate = new Date().toLocaleString();
+    const newComment = {
+      user: username,
+      score: selectedRating,
+      description: commentText
+    };
+    showComments([newComment]);
+    document.getElementById("comment").value = "";
   }
 }
