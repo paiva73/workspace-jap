@@ -3,6 +3,7 @@ const API_URL = `https://japceibal.github.io/emercado-api/products/${productID}.
 const API_URL_COMMENTS = `https://japceibal.github.io/emercado-api/products_comments/${productID}.json`;
 const containerProduct = document.getElementById("containerProductInfo");
 const containerComments = document.getElementById("containerComments");
+const btnSend = document.getElementById("btnSend");
 
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -99,3 +100,23 @@ async function getAndShowComments(url) {
   }
 }
 
+//Agregar Nuevos Comentarios
+
+btnSend.addEventListener("click", addComment);
+
+function addComment() {
+  const commentText = document.getElementById("comment").value;
+  const options = document.getElementById("options");
+  const selectedRating = options.options[options.selectedIndex].value;
+
+  if (commentText) {
+      const currentDate = new Date().toLocaleString();
+      const newComment = {
+          user: "Usuario Anonimo",
+          score: selectedRating,
+          description: commentText
+      };
+      showComments([newComment]);
+      document.getElementById("comment").value = "";
+  }
+}
