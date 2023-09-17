@@ -112,7 +112,6 @@ function addComment() {
   const username = JSON.parse(localStorage.getItem('datosUsuario')).username;
 
   if (commentText) {
-    const currentDate = new Date().toLocaleString();
     const newComment = {
       user: username,
       score: selectedRating,
