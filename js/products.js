@@ -1,4 +1,4 @@
-const categoryName = document.getElementById("categoryName"); //ESTA VARIABLE SE USA EN DATA PARA DARLE NOMBRE A LA CATEGORIA
+const categoryName = document.getElementById("categoryName");
 const cat = localStorage.getItem("catID");
 const API_URL = `https://japceibal.github.io/emercado-api/cats_products/${cat}.json`;
 const containerProducts = document.getElementById("cat-list-container-products");
@@ -13,13 +13,12 @@ const searchProduct = document.getElementById("searchProduct");
 
 //Función que muestra los productos, toma un array como parámetro, el array "data.products" que traemos de la API.
 document.addEventListener("DOMContentLoaded", () => {
-
-  let data;
+  //Gunción que muestra los productos
   function showProducts(products) {
     containerProducts.innerHTML = "";
     for (const product of products) {
       containerProducts.innerHTML += `
-        <div class="row list-group-item d-flex justify-content-start">
+        <div class="row list-group-item d-flex justify-content-start cursor-active" onclick="setProductID(${product.id})">
             <div class="col-3"> <img src="${product.image}" class="img-thumbnail img-fluid"/> </div>
                 <div class="col-8">
                     <h3>${product.name} - ${product.currency} ${product.cost}</h3>
@@ -33,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  //Esta función tiene que filtrar los productos por precio
+  //Función tiene que filtrar los productos por precio
   function applyAndShowFilter(products) {
         const minPrice = parseInt(rangeFilterCountMin.value);
         const maxPrice = parseInt(rangeFilterCountMax.value);
@@ -62,19 +61,19 @@ document.addEventListener("DOMContentLoaded", () => {
     rangeFilterCountMax.value = "";
     showProducts(products);
   }
-
+  //Fetch donde se realizan los Listener y se llama a "showProducts()"
   fetch(API_URL)
     .then((response) => {
       return response.json();
     })
-    .then((responseData) => {
-      data = responseData;
+    .then((data) => {
       categoryName.innerText = data.catName;
       sortAsc.addEventListener("click", () => applyAndShowFilter(data.products));
       sortDesc.addEventListener("click", () => applyAndShowFilter(data.products));
       sortByCount.addEventListener("click", () => applyAndShowFilter(data.products));
       rangeFilterCount.addEventListener("click", () => applyAndShowFilter(data.products));
       clearRangeFilter.addEventListener("click", () => clear(data.products));
+      searchProduct.addEventListener('input', () => searchBar(data.products));
       showProducts(data.products);
     })
     .catch((error) => {
@@ -82,15 +81,21 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
   // Funcionaliad de Busqueda
-  searchProduct.addEventListener("input", () => {
+  function searchBar(products){
     const searchQuery = searchProduct.value.toLowerCase().trim();
-    if (data) { // Check if data is defined
-      const filteredProducts = data.products.filter((product) => {
-        const productName = product.name.toLowerCase();
-        const productDescription = product.description.toLowerCase();
-        return productName.includes(searchQuery) || productDescription.includes(searchQuery);
-      });
+
+        const filteredProducts = products.filter((product) => {
+          const productName = product.name.toLowerCase();
+          const productDescription = product.description.toLowerCase();
+          return productName.includes(searchQuery) || productDescription.includes(searchQuery);
+        });
+
       applyAndShowFilter(filteredProducts);
-    }
-  });
+  }
 });
+
+// Funcionaliad redirigir a info de producto
+function setProductID(id) {      
+  localStorage.setItem("productID", id);
+  window.location = "product-info.html"
+}
