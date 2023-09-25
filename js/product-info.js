@@ -14,10 +14,13 @@ document.addEventListener("DOMContentLoaded", () => {
 async function getAndShowProductsInfo(url) {
     try {
         const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error(`Hubo un problema con la solicitud: ${response.status}`);
+        }
         const data = await response.json();
         showProduct(data);
     } catch (error) {
-        console.log("error", error);
+        console.log(error);
     }
 }
 
@@ -76,6 +79,23 @@ function showComments(comments) {
   }
 }
 
+//Función para agregar nuevos comentarios
+function addComment() {
+  const commentText = document.getElementById("comment");
+  const selectedRating = document.getElementById("options").value;
+  
+  if (commentText) {
+    const newComment = [{
+      user: JSON.parse(localStorage.getItem('datosUsuario')).username,
+      score: selectedRating,
+      description: commentText.value.trim()
+    }];
+    commentText.value = '';
+    showComments(newComment);
+  }
+}
+btnSend.addEventListener("click", addComment);
+
 function showStars(quantity){
   let stars = "";
 
@@ -93,30 +113,12 @@ function showStars(quantity){
 async function getAndShowComments(url) {
   try {
       const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`Hubo un problema con la solicitud: ${response.status}`);
+      }
       const data = await response.json();
       showComments(data);
   } catch (error) {
-      console.log("error", error);
-  }
-}
-
-//Agregar Nuevos Comentarios
-
-btnSend.addEventListener("click", addComment);
-
-function addComment() {
-  const commentText = document.getElementById("comment").value;
-  const options = document.getElementById("options");
-  const selectedRating = options.options[options.selectedIndex].value;
-
-  if (commentText) {
-      const currentDate = new Date().toLocaleString();
-      const newComment = {
-          user: "Usuario Anonimo",
-          score: selectedRating,
-          description: commentText
-      };
-      showComments([newComment]);
-      document.getElementById("comment").value = "";
+      console.log(error);
   }
 }
