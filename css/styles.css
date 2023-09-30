@@ -188,3 +188,11 @@ a.custom-card:hover {
 .checked {
   color: orange;
 }
+
+.bg-bootrstrap{
+  background-color: #563d7c;
+}
+
+#icon:active{
+  transition: 3s;
+}
