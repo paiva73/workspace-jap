@@ -18,15 +18,19 @@ document.addEventListener("DOMContentLoaded", () => {
     containerProducts.innerHTML = "";
     for (const product of products) {
       containerProducts.innerHTML += `
-        <div class="row list-group-item d-flex justify-content-start cursor-active" onclick="setProductID(${product.id})">
-            <div class="col-3"> <img src="${product.image}" class="img-thumbnail img-fluid"/> </div>
-                <div class="col-8">
-                    <h3>${product.name} - ${product.currency} ${product.cost}</h3>
-                    <p>${product.description}</p>
+      <div onclick="setProductID(${product.id})" class="list-group-item list-group-item-action cursor-active">
+          <div class="row">
+              <div class="col-3">
+                  <img src="${product.image}" alt="${product.description}" class="img-thumbnail">
+              </div>
+              <div class="col">
+                <div class="d-flex w-100 justify-content-between">
+                  <h4 class="mb-1">${product.name} - ${product.currency} ${product.cost}</h4>
+                  <small class="text-muted">${product.soldCount} artículos</small>
                 </div>
-            <div class="col-1 text-muted p-0"> 
-                <small>${product.soldCount} vendidos</small>
-            </div>
+                  <p class="mb-1">${product.description}</p>
+              </div>
+          </div>
         </div>
         `;
     }
