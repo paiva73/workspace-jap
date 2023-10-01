@@ -155,6 +155,7 @@ function showStars(quantity){
 //A partir de acá se puede borrar/cambiar todo.
 //Función asíncrona que muestra las cards de los productos relacionados, utilizando el endpoint de los productos.
 //Código empleado: desde 165 hasta 205.
+
 async function getAndShowRelationProducts(url) {
   try {
       const response = await fetch(url);
@@ -163,6 +164,9 @@ async function getAndShowRelationProducts(url) {
       }
       const data = await response.json();
       showRelatedProducts(data.products);
+     
+
+    
   } catch (error) {
       console.log(error);
   }
@@ -172,39 +176,22 @@ function setProductID(id) {
   localStorage.setItem("productID", id);
   window.location = "product-info.html"
 }
-//Función que genera números aleatorios para ser usados como indice del array de productos.
-function indexGenerator(products){
-  let indexProduct;
-  let arrayLength = products.length;
-  for (const iterator in products) {
-    if (products[iterator].id == productID) {
-      indexProduct = iterator;
-      break;
-    }
-  }
 
-  let numero1, numero2;
-  do {
-    numero1 = Math.floor(Math.random() * arrayLength); 
-    numero2 = Math.floor(Math.random() * arrayLength);
-  } while (numero1 === numero2 || numero1 == indexProduct || numero2 == indexProduct);
-
-  return [numero1, numero2];
-} 
-//Función que genera las cards con los producto relacionados.
+//Función productos relacionados
 function showRelatedProducts(products){
-  let relatedProduct = '';
-  for (const i of indexGenerator(products)) {
-    relatedProduct += `
-    <div class="col-6 col-md-4 col-lg-3 cursor-active" onclick="setProductID(${products[i].id})">
-      <div class="card">
-        <img src="${products[i].image}" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h6 class="card-title">${products[i].name}</h6>
-        </div>
-      </div>
-    </div>
-    `
-  }
-  return document.getElementById('containerRelatedProducts').innerHTML += relatedProduct;
+  let contador = 0;
+        for (let i = 0; i < products.length; i++) {
+            if (productID != products[i].id && contador < 2){ 
+            document.getElementById("containerRelatedProducts").innerHTML += `
+            <div class="col-6 col-md-4 col-lg-3 cursor-active">
+            <div class="card">
+            <img src="${products[i].image}" class="card-img-top" alt="..." onclick = "setProductID(${products[i].id})">
+           <div class="card-body">
+            <h6 class="card-title">${products[i].name}</h6>
+              </div>
+           </div>
+           </div>` 
+           contador++;
+          }
+      }
 }
