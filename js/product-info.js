@@ -1,66 +1,116 @@
 const productID = localStorage.getItem("productID");
 const API_URL = `https://japceibal.github.io/emercado-api/products/${productID}.json`;
 const API_URL_COMMENTS = `https://japceibal.github.io/emercado-api/products_comments/${productID}.json`;
+const catID = localStorage.getItem("catID");
+const API_URL_PRODUCTS = `https://japceibal.github.io/emercado-api/cats_products/${catID}.json`;
 const containerProduct = document.getElementById("containerProductInfo");
 const containerComments = document.getElementById("containerComments");
 const btnSend = document.getElementById("btnSend");
 
-
+//Escuchamos el evento DOMContentLoaded para recién ahí, llamar a las funciones que muestran los productos y comentarios.
 document.addEventListener("DOMContentLoaded", () => {
-    getAndShowProductsInfo(API_URL)
-    getAndShowComments(API_URL_COMMENTS)
+    getAndShowProductsInfo(API_URL);
+    getAndShowRelationProducts(API_URL_PRODUCTS);
+    getAndShowComments(API_URL_COMMENTS);
 })
-// Hacer la solicitud fetch a la API
+//Función asíncrona que muestra la card generada del producto, utilizando el endpoint del producto pertinente.
 async function getAndShowProductsInfo(url) {
     try {
         const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error(`Hubo un problema con la solicitud: ${response.status}`);
+        }
         const data = await response.json();
         showProduct(data);
     } catch (error) {
-        console.log("error", error);
+        console.log(error);
     }
 }
-
-function showProduct(product){
-containerProduct.innerHTML = ` 
-<div class="row mb-2">
-  <h1 class="border-bottom border-2 pt-5 pb-5 h2">${product.name}</h1>
-</div>
-<div class="row">
-  <div class="mb-4">
-    <h6 class="mb-0" class="mb-0"><b>Precio</b></h6>
-    <small>${product.currency} ${product.cost}</small>
-  </div>
-  <div class="mb-4">
-    <h6 class="mb-0"><b>Descripción</b></h6>
-    <small>${product.description}</small>
-  </div>
-  <div class="mb-4">
-    <h6 class="mb-0"><b>Categoría</b></h6>
-    <small>${product.category}</small>
-  </div>
-  <div class="mb-4">
-    <h6 class="mb-0"><b>Cantidad vendidos</b></h6>
-    <small>${product.soldCount}</small>
-  </div>
-  <div class="mb-4">
-    <h6 class="mb-2"><b>Imágenes ilustrativas</b></h6>
-    <div class="row mb-3">${showImages(product.images)}</div>
-  </div>
-</div>
-    `
+//Función que genera la "card" del producto.
+function showProduct(product) {
+  containerProduct.innerHTML = `
+    <div class="row mb-2">
+      <h1 class="border-bottom border-2 pt-5 pb-5 h2">${product.name}</h1>
+    </div>
+    <div class="row">
+      <div class="mb-4">
+        <h6 class="mb-0"><b>Precio</b></h6>
+        <small>${product.currency} ${product.cost}</small>
+      </div>
+      <div class="mb-4">
+        <h6 class="mb-0"><b>Descripción</b></h6>
+        <small>${product.description}</small>
+      </div>
+      <div class="mb-4">
+        <h6 class="mb-0"><b>Categoría</b></h6>
+        <small>${product.category}</small>
+      </div>
+      <div class="mb-4">
+        <h6 class="mb-0"><b>Cantidad vendidos</b></h6>
+        <small>${product.soldCount}</small>
+      </div>
+      <div class="mb-2">
+        <h6 class="mb-2"><b>Imágenes ilustrativas</b></h6>
+        ${generateImageCarousel(product.images)}
+      </div>
+    </div>
+  `;
 }
 
-function showImages(images) {
-    let img = "";
+// Función para crear el carrusel de imágenes
+function generateImageCarousel(images) {
+  // Verifica si no se proporcionaron imágenes o si el arreglo está vacío
+  if (!images || images.length === 0) {
+    return ''; // Retorna una cadena vacía si no hay imágenes
+  }
 
-    for (const image of images) {
-      img += `<div class="col-12 col-md-6 col-lg-3 mb-3"><img src="${image}" class="img-thumbnail img-fluid"></div>`
-    }
-    return img;
+  // Genera los indicadores del posición dentro del carrusel
+  const carouselIndicators = images.map((image, i) => `
+    <button
+      type="button"
+      data-bs-target="#productImageCarousel"
+      data-bs-slide-to="${i}"
+      class="${i === 0 ? 'active' : ''}"
+      aria-current="${i === 0 ? 'true' : 'false'}"
+      aria-label="Slide ${i + 1}"
+    ></button>`).join('');
+
+  // Genera el contenido dentro del carrusel
+  const carouselInner = images.map((image, i) => `
+    <div class="carousel-item ${i === 0 ? 'active' : ''}">
+      <img src="${image}" class="d-block w-100" alt="Image ${i + 1}">
+    </div>`).join('');
+
+  // Retorna el carrusel completo en forma de cadena HTML
+  return `
+    <div id="productImageCarousel" class="carousel carousel-dark slide carousel-fade" data-bs-ride="carousel" style="max-width: 50rem;">
+      <ol class="carousel-indicators">${carouselIndicators}</ol>
+      <div class="carousel-inner">${carouselInner}</div>
+      <a class="carousel-control-prev" href="#productImageCarousel" role="button" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#productImageCarousel" role="button" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </a>
+    </div>`;
 }
 
-
+//Función asíncrona que muestra los comentarios generados, utilizando el endpoint de los comentarios.
+async function getAndShowComments(url) {
+  try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`Hubo un problema con la solicitud: ${response.status}`);
+      }
+      const data = await response.json();
+      showComments(data);
+  } catch (error) {
+      console.log(error);
+  }
+}
+//Función que genera las cards con los producto comentarios.
 function showComments(comments) {
   let currentDate = new Date().toLocaleString();
 
@@ -75,7 +125,27 @@ function showComments(comments) {
   `
   }
 }
+//Función para agregar nuevos comentarios.
+function addComment() {
+  const comment = document.getElementById("comment");
+  const commentText = comment.value.trim();
+  console.log(commentText);
+  const selectedRating = document.getElementById("options").value;
 
+  //Verifico que exista texto en el textarea.
+  if (commentText) {
+    const newComment = [{
+      user: JSON.parse(localStorage.getItem('datosUsuario')).username,
+      score: selectedRating,
+      description: commentText
+    }];
+    comment.value = '';
+    showComments(newComment);
+  }
+}
+btnSend.addEventListener("click", addComment);
+
+//Función que genera las estrellas para los comentarios.
 function showStars(quantity){
   let stars = "";
 
@@ -88,37 +158,39 @@ function showStars(quantity){
   }
   return stars;
 }
-
-// Fetch para mostrar comentarios
-async function getAndShowComments(url) {
+//Función asíncrona que muestra las cards de los productos relacionados, utilizando el endpoint de los productos.
+async function getAndShowRelationProducts(url) {
   try {
       const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`Hubo un problema con la solicitud: ${response.status}`);
+      }
       const data = await response.json();
-      showComments(data);
+      showRelatedProducts(data.products);
   } catch (error) {
-      console.log("error", error);
+      console.log(error);
   }
 }
-
-//Agregar Nuevos Comentarios
-
-btnSend.addEventListener("click", addComment);
-
-function addComment() {
-  const commentText = document.getElementById("comment").value;
-  const options = document.getElementById("options");
-  const selectedRating = options.options[options.selectedIndex].value;
-
-  const username = JSON.parse(localStorage.getItem('datosUsuario')).username;
-
-  if (commentText) {
-    const currentDate = new Date().toLocaleString();
-    const newComment = {
-      user: username,
-      score: selectedRating,
-      description: commentText
-    };
-    showComments([newComment]);
-    document.getElementById("comment").value = "";
-  }
+//Función para pushear el id del producto al localStorage y redirigir a su respectiva página.
+function setProductID(id) {      
+  localStorage.setItem("productID", id);
+  window.location = "product-info.html"
+}
+//Función productos relacionados
+function showRelatedProducts(products){
+  let contador = 0;
+        for (let i = 0; i < products.length; i++) {
+            if (productID != products[i].id && contador < 2){ 
+            document.getElementById("containerRelatedProducts").innerHTML += `
+            <div class="col-6 col-md-4 col-lg-3 cursor-active">
+            <div class="card">
+            <img src="${products[i].image}" class="card-img-top" alt="..." onclick = "setProductID(${products[i].id})">
+           <div class="card-body">
+            <h6 class="card-title">${products[i].name}</h6>
+              </div>
+           </div>
+           </div>` 
+           contador++;
+          }
+      }
 }
