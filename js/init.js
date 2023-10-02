@@ -48,7 +48,7 @@ function verifyExistence(){
 }
 verifyExistence();
 //Función que genera el dropdown del usuario.
-//Esta funcion es la que muestra el dropdown del nombre de usuario (Se puede borarr/cambiar). es llamada en linea 78.
+//Esta funcion es la que muestra el dropdown del nombre de usuario. Es llamada en linea 78.
 function createDropDown(){
   const navbarUserElement = document.getElementById('navbarUser');
   if (dataExists) {
