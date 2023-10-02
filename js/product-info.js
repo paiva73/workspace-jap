@@ -14,7 +14,6 @@ document.addEventListener("DOMContentLoaded", () => {
     getAndShowComments(API_URL_COMMENTS);
 })
 //Función asíncrona que muestra la card generada del producto, utilizando el endpoint del producto pertinente.
-//Código empleado: desde 30 hasta 94.
 async function getAndShowProductsInfo(url) {
     try {
         const response = await fetch(url);
@@ -27,8 +26,7 @@ async function getAndShowProductsInfo(url) {
         console.log(error);
     }
 }
-//Función que genera la "card"(no es una card xd) del producto.
-//Desde la linea 56 hasta la 66 es del carousel. (Se puede borrar/cambiar). Lineas: 56 - 66.
+//Función que genera la "card" del producto.
 function showProduct(product) {
   containerProduct.innerHTML = `
     <div class="row mb-2">
@@ -100,7 +98,6 @@ function generateImageCarousel(images) {
 }
 
 //Función asíncrona que muestra los comentarios generados, utilizando el endpoint de los comentarios.
-//Código empleado: desde 109 hasta 154. 
 async function getAndShowComments(url) {
   try {
       const response = await fetch(url);
@@ -134,6 +131,7 @@ function addComment() {
   const commentText = comment.value.trim();
   console.log(commentText);
   const selectedRating = document.getElementById("options").value;
+
   //Verifico que exista texto en el textarea.
   if (commentText) {
     const newComment = [{
@@ -146,6 +144,7 @@ function addComment() {
   }
 }
 btnSend.addEventListener("click", addComment);
+
 //Función que genera las estrellas para los comentarios.
 function showStars(quantity){
   let stars = "";
@@ -159,9 +158,7 @@ function showStars(quantity){
   }
   return stars;
 }
-//A partir de acá se puede borrar/cambiar todo.
 //Función asíncrona que muestra las cards de los productos relacionados, utilizando el endpoint de los productos.
-//Código empleado: desde 165 hasta 205.
 async function getAndShowRelationProducts(url) {
   try {
       const response = await fetch(url);
@@ -174,44 +171,26 @@ async function getAndShowRelationProducts(url) {
       console.log(error);
   }
 }
-//Función para pushear el id del producto al localStorage y redirigir a su respectiva página. (se usa con un onclick linea 199)
+//Función para pushear el id del producto al localStorage y redirigir a su respectiva página.
 function setProductID(id) {      
   localStorage.setItem("productID", id);
   window.location = "product-info.html"
 }
-//Función que genera números aleatorios para ser usados como indice del array de productos.
-function indexGenerator(products){
-  let indexProduct;
-  let arrayLength = products.length;
-  for (const iterator in products) {
-    if (products[iterator].id == productID) {
-      indexProduct = iterator;
-      break;
-    }
-  }
-
-  let numero1, numero2;
-  do {
-    numero1 = Math.floor(Math.random() * arrayLength); 
-    numero2 = Math.floor(Math.random() * arrayLength);
-  } while (numero1 === numero2 || numero1 == indexProduct || numero2 == indexProduct);
-
-  return [numero1, numero2];
-} 
-//Función que genera las cards con los producto relacionados.
+//Función productos relacionados
 function showRelatedProducts(products){
-  let relatedProduct = '';
-  for (const i of indexGenerator(products)) {
-    relatedProduct += `
-    <div class="col-6 col-md-4 col-lg-3 cursor-active" onclick="setProductID(${products[i].id})">
-      <div class="card">
-        <img src="${products[i].image}" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h6 class="card-title">${products[i].name}</h6>
-        </div>
-      </div>
-    </div>
-    `
-  }
-  return document.getElementById('containerRelatedProducts').innerHTML += relatedProduct;
+  let contador = 0;
+        for (let i = 0; i < products.length; i++) {
+            if (productID != products[i].id && contador < 2){ 
+            document.getElementById("containerRelatedProducts").innerHTML += `
+            <div class="col-6 col-md-4 col-lg-3 cursor-active">
+            <div class="card">
+            <img src="${products[i].image}" class="card-img-top" alt="..." onclick = "setProductID(${products[i].id})">
+           <div class="card-body">
+            <h6 class="card-title">${products[i].name}</h6>
+              </div>
+           </div>
+           </div>` 
+           contador++;
+          }
+      }
 }

@@ -48,7 +48,6 @@ function verifyExistence(){
 }
 verifyExistence();
 //Función que genera el dropdown del usuario.
-//Esta funcion es la que muestra el dropdown del nombre de usuario (Se puede borarr/cambiar). es llamada en linea 78.
 function createDropDown(){
   const navbarUserElement = document.getElementById('navbarUser');
   if (dataExists) {
@@ -58,14 +57,14 @@ function createDropDown(){
         ${dataExists.username}
       </button>
       <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-        <li><a class="dropdown-item" href="../cart.html">Mi carrito</a></li>
-        <li><a class="dropdown-item" href="../my-profile.html">Mi perfil</a></li>
-        <li><a onclick="signOff()" class="dropdown-item" href="../login.html">Cerrar sesión</a></li>
+        <li><a class="dropdown-item" href="./cart.html">Mi carrito</a></li>
+        <li><a class="dropdown-item" href="./my-profile.html">Mi perfil</a></li>
+        <li><a onclick="signOff()" class="dropdown-item" href="./login.html">Cerrar sesión</a></li>
       </ul>
     </div>`;
   }
 }
-//Función asociada al botón "Cerrar sesión". Borra el usuario del local storage.(es llamada con onclick en linea 63).
+//Función asociada al botón "Cerrar sesión". Borra el usuario del local storage.
 function signOff() {
   localStorage.removeItem('datosUsuario');
 }
@@ -79,6 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
       changeNavbarColor(savedTheme);
       changeIcon(savedTheme);
     }
+    document.getElementById("icon").addEventListener("click", changeMode);
   createDropDown();
 });
 
