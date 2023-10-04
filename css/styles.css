@@ -192,7 +192,3 @@ a.custom-card:hover {
 .bg-bootrstrap{
   background-color: #563d7c;
 }
-
-#icon:active{
-  transition: 3s;
-}
