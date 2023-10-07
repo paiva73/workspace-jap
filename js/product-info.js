@@ -6,6 +6,7 @@ const API_URL_PRODUCTS = `https://japceibal.github.io/emercado-api/cats_products
 const containerProduct = document.getElementById("containerProductInfo");
 const containerComments = document.getElementById("containerComments");
 const btnSend = document.getElementById("btnSend");
+const comments = JSON.parse(localStorage.getItem('comments')) || [];
 
 //Escuchamos el evento DOMContentLoaded para recién ahí, llamar a las funciones que muestran los productos y comentarios.
 document.addEventListener("DOMContentLoaded", () => {
@@ -106,41 +107,60 @@ async function getAndShowComments(url) {
       }
       const data = await response.json();
       showComments(data);
+      existingComments();
   } catch (error) {
       console.log(error);
   }
 }
 //Función que genera las cards con los producto comentarios.
-function showComments(comments) {
-  let currentDate = new Date().toLocaleString();
-
-  for (const comment of comments) {
+function showComments(dataComments) {
+  //Ordeno el array para mostrar los comentarios por fecha.
+  dataComments.sort(function(a, b) {
+    //Convierto las fechas a tipo "Date". (eran string).
+    let dateA = new Date(a.dateTime);
+    let dateB = new Date(b.dateTime);
+    return dateA - dateB;
+});
+//Muestro los comentarios.
+  for (const comment of dataComments) {
   containerComments.innerHTML += ` 
   <div class="media-body border border-2 px-3 py-2"> 
     <div class="d-flex align-items-center">
-      <p class="mb-0"><strong> ${comment.user} </strong> - <small> ${currentDate}</small> - ${showStars(comment.score)} </p>
+      <p class="mb-0"><strong> ${comment.user} </strong> - <small> ${comment.dateTime}</small> - ${showStars(comment.score)} </p>
     </div>
     <p class="mb-0"> ${comment.description} </p>
   </div>
   `
   }
 }
+//Función para mostrar los comentarios creados por el usuario incluso al reiniciar la página.
+function existingComments(){
+  for (const comment of comments) {
+    if(productID == comment.productID){
+      showComments([comment]);
+    }
+  }
+}
 //Función para agregar nuevos comentarios.
 function addComment() {
   const comment = document.getElementById("comment");
   const commentText = comment.value.trim();
-  console.log(commentText);
   const selectedRating = document.getElementById("options").value;
+  let currentDate = new Date().toLocaleString();
 
   //Verifico que exista texto en el textarea.
   if (commentText) {
-    const newComment = [{
+    const newComment = {
       user: JSON.parse(localStorage.getItem('datosUsuario')).username,
       score: selectedRating,
-      description: commentText
-    }];
+      description: commentText,
+      dateTime: currentDate,
+      productID: productID
+    };
+    comments.push(newComment);
+    localStorage.setItem('comments', JSON.stringify(comments));
     comment.value = '';
-    showComments(newComment);
+    showComments([newComment]);
   }
 }
 btnSend.addEventListener("click", addComment);
