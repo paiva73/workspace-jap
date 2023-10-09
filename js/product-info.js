@@ -152,9 +152,10 @@ function showStars(quantity){
   }
   return stars;
 }
-//A partir de acá se puede borrar/cambiar todo.
-//Función asíncrona que muestra las cards de los productos relacionados, utilizando el endpoint de los productos.
-//Código empleado: desde 165 hasta 205.
+
+
+
+
 
 async function getAndShowRelationProducts(url) {
   try {
@@ -171,7 +172,7 @@ async function getAndShowRelationProducts(url) {
       console.log(error);
   }
 }
-//Función para pushear el id del producto al localStorage y redirigir a su respectiva página. (se usa con un onclick linea 199)
+//Función para pushear el id del producto al localStorage 
 function setProductID(id) {      
   localStorage.setItem("productID", id);
   window.location = "product-info.html"
