@@ -7,6 +7,7 @@ const containerProduct = document.getElementById("containerProductInfo");
 const containerComments = document.getElementById("containerComments");
 const btnSend = document.getElementById("btnSend");
 const comments = JSON.parse(localStorage.getItem('comments')) || [];
+const productsInCart = JSON.parse(localStorage.getItem('productsInCart')) || [];
 
 //Escuchamos el evento DOMContentLoaded para recién ahí, llamar a las funciones que muestran los productos y comentarios.
 document.addEventListener("DOMContentLoaded", () => {
@@ -29,12 +30,17 @@ async function getAndShowProductsInfo(url) {
 }
 //Función que genera la "card" del producto.
 function showProduct(product) {
+  console.log(product);
   containerProduct.innerHTML = `
-    <div class="row mb-2">
-      <h1 class="border-bottom border-2 pt-5 pb-5 h2">${product.name}</h1>
+    <div class="row pt-5 pb-5">
+      <h1 class="h2 col-9">${product.name}</h1>
+      <div class="col-lg-3">
+      <button type="button" class="btn btn-success w-25 px-2" style="min-width: 100px;" onclick="addToCart('${encodeURIComponent(JSON.stringify(product))}')">Comprar</button>
+      </div>
     </div>
+    <hr class="m-0">
     <div class="row">
-      <div class="mb-4">
+      <div class="my-4">
         <h6 class="mb-0"><b>Precio</b></h6>
         <small>${product.currency} ${product.cost}</small>
       </div>
@@ -204,7 +210,7 @@ function showRelatedProducts(products){
             document.getElementById("containerRelatedProducts").innerHTML += `
             <div class="col-6 col-md-4 col-lg-3 cursor-active">
             <div class="card">
-            <img src="${products[i].image}" class="card-img-top" alt="..." onclick = "setProductID(${products[i].id})">
+            <img src="${products[i].image}" class="card-img-top" alt="..." onclick="setProductID(${products[i].id})">
            <div class="card-body">
             <h6 class="card-title">${products[i].name}</h6>
               </div>
@@ -213,4 +219,28 @@ function showRelatedProducts(products){
            contador++;
           }
       }
+}
+//Función que añade productos al carrito.
+function addToCart(productJSON) {
+  let product = JSON.parse(decodeURIComponent(productJSON));
+
+  if(productsInCart.some(item => item.id === product.id)){
+    Toastify({
+      text: "El producto ya está incluido en el carrito.",
+      duration: 1500,
+      style: {
+        background: "#C82333"
+      }
+      }).showToast();
+  } else {
+    productsInCart.push(product);
+    localStorage.setItem('productsInCart', JSON.stringify(productsInCart));
+    Toastify({
+      text: "El producto ha sido añadido al carrito!",
+      duration: 2000,
+      style: {
+        background: "#218838"
+      }
+      }).showToast();
+  }
 }
