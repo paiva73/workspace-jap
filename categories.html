@@ -47,39 +47,46 @@
       <p class="lead">Verás aquí todas las categorías del sitio.</p>
     </div>
     <div class="container">
-      <div class="row">
-        <div class="col text-end">
-          <div class="btn-group btn-group-toggle mb-4" data-bs-toggle="buttons">
+      <div id="superior-productos" class="row mt-3"> <!-- Superior Open -->
+
+        <div class="col-md-6 mt-1 mb-1"> <!--   Left Area Open -->
+            <div class="row"> <!-- Precio Open -->
+              <h4 class="font-weight-normal">Cant.</h4>
+            </div> <!-- Precio Close -->
+            <div class="row-m mb-1"> <!-- Precio forms Open -->
+              <div class="row-md-2 mb-1"> <!-- Precio Min Open -->
+                <input class="form-control m-1" type="number" placeholder="min." id="rangeFilterCountMin">
+              </div> <!-- Precio Min Close -->
+              <div class="row-md-2 mb-1"> <!-- Precio Max Open -->
+                <input class="form-control m-1" type="number" placeholder="máx." id="rangeFilterCountMax">
+              </div> <!-- Precio Max Close -->
+            </div> <!-- Precio forms Close -->
+        </div> <!--   Left Area Close -->
+
+        <div class="col-md-6 text-end mt-1 mb-1"> <!-- Right Area Open -->    
+
+          <div class="row"> <!-- Main Buttons Open -->
+            <div class="col"> <!--   Butons Sec Open -->
+              <div class="mb-1"> <!-- Main Buttons Filtrar Open -->
+                <button class="btn btn-outline-primary" id="rangeFilterCount">Filtrar</button>
+              </div> <!-- Main Buttons Filtrar Close -->
+              <div class="mb-1"> <!-- Main Buttons Limpiar Open -->
+                <button class="btn btn-outline-danger" id="clearRangeFilter">Limpiar</button>
+              </div> <!-- Main Buttons Limpiar Close -->
+            </div> <!--   Butons Sec Close -->
+          </div> <!-- Main Buttons Close -->
+
+          <div class="btn-group btn-group-toggle mb-1" data-bs-toggle="buttons"> <!--   Filter Sec Open -->
             <input type="radio" class="btn-check" name="options" id="sortAsc">
-            <label class="btn btn-light" for="sortAsc">A-Z</label>
-            <input type="radio" class="btn-check" name="options" id="sortDesc">
-            <label class="btn btn-light" for="sortDesc">Z-A</label>
-            <input type="radio" class="btn-check" name="options" id="sortByCount" checked>
-            <label class="btn btn-light" for="sortByCount"><i class="fas fa-sort-amount-down mr-1"></i></label>
-          </div>
-        </div>
+                <label class="btn btn-light" for="sortAsc">A-Z</label>
+                <input type="radio" class="btn-check" name="options" id="sortDesc">
+                <label class="btn btn-light" for="sortDesc">Z-A</label>
+                <input type="radio" class="btn-check" name="options" id="sortByCount" checked>
+                <label class="btn btn-light" for="sortByCount"><i class="fas fa-sort-amount-down mr-1"></i></label>
+          </div> <!--   Filter Sec Close -->
+        </div> <!-- Right Area Close -->
       </div>
-      <div class="row">
-        <div class="col-lg-6 offset-lg-6 col-md-12 mb-1 container">
-          <div class="row container p-0 m-0">
-            <div class="col">
-              <p class="font-weight-normal text-end my-2">Cant.</p>
-            </div>
-            <div class="col">
-              <input class="form-control" type="number" placeholder="min." id="rangeFilterCountMin">
-            </div>
-            <div class="col">
-              <input class="form-control" type="number" placeholder="máx." id="rangeFilterCountMax">
-            </div>
-            <div class="col-3 p-0">
-              <div class="btn-group" role="group">
-                <button class="btn btn-light btn-block" id="rangeFilterCount">Filtrar</button>
-                <button class="btn btn-link btn-sm" id="clearRangeFilter">Limpiar</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+
       <div class="row">
         <div class="list-group" id="cat-list-container">
         </div>

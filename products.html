@@ -48,32 +48,36 @@
       <p class="lead">Verás aquí todos los productos de la categoria <b id="categoryName" ></b></p>
     </div> <!--Head Close-->
     <div class="container"> <!--Container Open-->
-      <div id="superior-productos" class="row"> <!-- Superior Open -->
+      <div id="superior-productos" class="row mt-3"> <!-- Superior Open -->
 
-        <div class="col"> <!--   Price/Butons Open -->
-          <div class="col"> <!-- Precio Open -->
-            <h4 class="font-weight-normal">Precio</h4>
-          </div> <!-- Precio Close -->
-          <div class="row"> <!-- Precio forms Open -->
-            <div class="col-md-2 mb-1"> <!-- Precio Min Open -->
-              <input class="form-control" type="number" placeholder="min." id="rangeFilterCountMin">
-            </div> <!-- Precio Min Close -->
-            <div class="col-md-2"> <!-- Precio Max Open -->
-              <input class="form-control" type="number" placeholder="máx." id="rangeFilterCountMax">
-            </div> <!-- Precio Max Close -->
-          </div> <!-- Precio forms Close -->
+        <div class="col-md-6 mt-1 mb-1"> <!--   Left Area Open -->
+            <div class="row"> <!-- Precio Open -->
+              <h4 class="font-weight-normal">Precio</h4>
+            </div> <!-- Precio Close -->
+            <div class="row-m mb-1"> <!-- Precio forms Open -->
+              <div class="row-md-2 mb-1"> <!-- Precio Min Open -->
+                <input class="form-control m-1" type="number" placeholder="min." id="rangeFilterCountMin">
+              </div> <!-- Precio Min Close -->
+              <div class="row-md-2 mb-1"> <!-- Precio Max Open -->
+                <input class="form-control m-1" type="number" placeholder="máx." id="rangeFilterCountMax">
+              </div> <!-- Precio Max Close -->
+            </div> <!-- Precio forms Close -->
+        </div> <!--   Left Area Close -->
+
+        <div class="col-md-6 text-end mt-1 mb-1"> <!-- Right Area Open -->    
+
           <div class="row"> <!-- Main Buttons Open -->
-            <div class="col-md-2 mb-1"> <!-- Main Buttons Filtrar Open -->
-              <button class="btn btn-outline-primary" id="rangeFilterCount">Filtrar</button>
-            </div> <!-- Main Buttons Filtrar Close -->
-            <div class="col-md-2 mb-1"> <!-- Main Buttons Limpiar Open -->
-              <button class="btn btn-outline-danger" id="clearRangeFilter">Limpiar</button>
-            </div> <!-- Main Buttons Limpiar Close -->
+            <div class="col"> <!--   Butons Sec Open -->
+              <div class="mb-1"> <!-- Main Buttons Filtrar Open -->
+                <button class="btn btn-outline-primary" id="rangeFilterCount">Filtrar</button>
+              </div> <!-- Main Buttons Filtrar Close -->
+              <div class="mb-1"> <!-- Main Buttons Limpiar Open -->
+                <button class="btn btn-outline-danger" id="clearRangeFilter">Limpiar</button>
+              </div> <!-- Main Buttons Limpiar Close -->
+            </div> <!--   Butons Sec Close -->
           </div> <!-- Main Buttons Close -->
-        </div> <!--  Price/Butons Close -->
 
-        <div class="row-md-6"> <!--   Filter Main Open -->
-          <div class="btn-group btn-group-toggle mb-4" data-bs-toggle="buttons"> <!--   Filter Sec Close -->
+          <div class="btn-group btn-group-toggle mb-1" data-bs-toggle="buttons"> <!--   Filter Sec Open -->
             <input type="radio" class="btn-check" name="options" id="sortAsc">
             <label class="btn btn-light" for="sortAsc"><i class="fas fa-sort-amount-up"></i>$</label>
             <input type="radio" class="btn-check" name="options" id="sortDesc">
@@ -81,7 +85,8 @@
             <input type="radio" class="btn-check" name="options" id="sortByCount">
             <label class="btn btn-light" for="sortByCount"><i class="fas fa-sort-amount-down mr-1"></i>Rel.</label>
           </div> <!--   Filter Sec Close -->
-        </div> <!--   Filter Main Close -->
+
+        </div> <!-- Right Area Close -->
 
         <div class="row-md-6"> <!-- Search Open -->
           <input class="form-control form-control mb-2" id="searchProduct" type="text" placeholder="Buscar...">
