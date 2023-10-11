@@ -9,6 +9,7 @@
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/font-awesome.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/cart.css">
   <!-- Bootrstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
@@ -41,12 +42,120 @@
     </div>
   </nav>
   <main>
-    <div class="container">
-      <div class="alert alert-danger text-center" role="alert">
-        <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
-      </div>
+    <div class="container" id="cartArticles">
+      <section class="h-100 h-custom">
+        <div class="container py-5 h-100">
+          <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12">
+              <div class="card card-registration card-registration-2" style="border-radius: 15px;">
+                <div class="card-body p-0">
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <div class="p-5">
+                        <div class="d-flex justify-content-between align-items-center mb-5">
+                          <h1 class="fw-bold mb-0">Carrito de compras</h1>
+                        </div>
+                        <hr class="my-4">                                    
+                        <div id="containerArticles">
+                        </div>
+                        <div class="pt-5">
+                          <h6 class="mb-0"><a href="products.html" class="text-body"><i
+                                class="fas fa-long-arrow-alt-left me-2"></i>Seguir comprando</a></h6>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Formulario con datos del envio -->
+      <div class="form container">
+        <form class="row g-3 needs-validation" novalidate>
+          <div class="container">
+            <h2>Tipo de envío</h2>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" id="premium" name="envio">
+              <label class="form-check-label" for="premium">Premium de 2 a 5 días</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" id="express" name="envio">
+              <label class="form-check-label" for="express">Express de 5 a 8 días</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" id="estandar" name="envio">
+              <label class="form-check-label" for="estandar">Estándar 12 a 15 días</label>
+            </div>
+          </div>
+             <h2>Datos</h2>
+          <div class="col-md-4 position-relative">
+            <label for="validationTooltip00" class="form-label">Calle</label>
+            <input type="text" class="form-control" id="validationTooltip00"  required>
+            <div class="valid-tooltip">
+            </div>
+          </div>
+          <div class="col-md-4 position-relative">
+            <label for="validationTooltip01" class="form-label">Esquina</label>
+            <input type="text" class="form-control" id="validationTooltip01"  required>
+            <div class="valid-tooltip">
+            </div>
+          </div>
+          <div class="col-md-4 position-relative">
+            <label for="validationTooltip02" class="form-label">Número</label>
+            <input type="number" class="form-control" id="validationTooltip02"  required>
+            <div class="valid-tooltip">
+            </div>
+          </div>
+          <div class="col-md-6 position-relative">
+            <label for="validationTooltip03" class="form-label">Ciudad</label>
+            <input type="text" class="form-control" id="validationTooltip03" required>
+            <div class="invalid-tooltip">
+            </div>
+          </div>
+          <div class="col-md-3 position-relative">
+            <label for="validationTooltip04" class="form-label">Departamento</label>
+            <select class="form-select" id="validationTooltip04" required>
+              <option selected disabled value="">Seleciona uno...</option>
+              <option value="dpto1">Artigas</option>
+              <option value="dpto2">Canelones</option>
+              <option value="dpto3">Cerro Largo</option>
+              <option value="dpto4">Colonia</option>
+              <option value="dpto5">Durazno</option>
+              <option value="dpto6">Flores</option>
+              <option value="dpto7">Florida</option>
+              <option value="dpto8">Lavalleja</option>
+              <option value="dpto9">Maldonado</option>
+              <option value="dpto10">Montevideo</option>
+              <option value="dpto11">Paysandú</option>
+              <option value="dpto12">Río Negro</option>
+              <option value="dpto13">Rivera</option>
+              <option value="dpto14">Rocha</option>
+              <option value="dpto15">Salto</option>
+              <option value="dpto16">San José</option>
+              <option value="dpto17">Soriano</option>
+              <option value="dpto18">Tacuarembó</option>
+              <option value="dpto19">Treinta y Tres</option>
+            </select>
+            <div class="invalid-tooltip">
+            </div>
+          </div>
+          <div class="col-md-3 position-relative">
+            <label for="validationTooltip05" class="form-label">Código postal</label>
+            <input type="number" class="form-control" id="validationTooltip05" required>
+            <div class="invalid-tooltip">
+            </div>
+          </div>
+          <div class="col-12">
+            <button class="btn btn-primary" type="submit">Enviar</button>
+          </div>
+        </form>
+       </div>
     </div>
+    
   </main>
+
   <footer class="text-muted">
     <div class="container">
       <p class="float-end">
