@@ -24,6 +24,7 @@ async function getAndShowProductsInfo(url) {
         }
         const data = await response.json();
         showProduct(data);
+        console.log(data);
     } catch (error) {
         console.log(error);
     }
@@ -35,7 +36,7 @@ function showProduct(product) {
     <div class="row pt-5 pb-5">
       <h1 class="h2 col-9">${product.name}</h1>
       <div class="col-lg-3">
-      <button type="button" class="btn btn-success w-25 px-2" style="min-width: 100px;" onclick="addToCart('${encodeURIComponent(JSON.stringify(product))}')">Comprar</button>
+      <button type="button" class="btn btn-success w-25 px-2" style="min-width: 100px;" id="btnBuy">Comprar</button>
       </div>
     </div>
     <hr class="m-0">
@@ -62,6 +63,9 @@ function showProduct(product) {
       </div>
     </div>
   `;
+  document.getElementById('btnBuy').addEventListener('click', () => {
+    addToCart(product);
+  })
 }
 
 // Función para crear el carrusel de imágenes
@@ -221,9 +225,7 @@ function showRelatedProducts(products){
       }
 }
 //Función que añade productos al carrito.
-function addToCart(productJSON) {
-  let product = JSON.parse(decodeURIComponent(productJSON));
-
+function addToCart(product) {
   if(productsInCart.some(item => item.id === product.id)){
     Toastify({
       text: "El producto ya está incluido en el carrito.",
