@@ -96,3 +96,72 @@ function removeFromCart(articleId) {
     }
   }
 }
+
+//Payment Modal
+
+//Restriccion del input Nombre del titular
+function validateName(name) {
+  var regex = /^[A-Za-zÁáÉéÍíÓóÚúÜüÑñ\s]+$/;       // Expresión regular que permite solo letras (mayúsculas o minúsculas).
+
+  if (!regex.test(name.value)) {                   // Si el valor no cumple con la restricción... 
+
+    name.value = name.value.slice(0, -1);          //...se borra el último carácter ingresado.
+  }
+}
+
+//Restriccion del input Tarjeta de credito (Máscara)
+$(document).ready(function() {
+  $('#formCardNumber').inputmask('9999 9999 9999 9999');
+});
+
+//Ocultar numero de tarjeta de credito
+document.addEventListener('DOMContentLoaded', function() {
+  const cardNumberInput = document.getElementById('formCardNumber');
+  const hideNumberIcon = document.getElementById('hideNumber');
+
+  hideNumberIcon.addEventListener('click', function() {
+    if (cardNumberInput.type === 'password') {
+      cardNumberInput.type = 'text';
+      hideNumberIcon.innerHTML = '<i class="fa fa-eye"></i>';
+    } else {
+      cardNumberInput.type = 'password';
+      hideNumberIcon.innerHTML = '<i class="fa fa-eye-slash"></i>';
+    }
+  });
+});
+
+//Restriccion del input fecha mm/aa
+document.addEventListener('DOMContentLoaded', function() {
+  const cardExpirationInput = document.getElementById('cardExpiration');
+
+  const maskOptions = {
+    mask: '00/00',
+    lazy: false, // No permite espacios en blanco hasta que se complete la máscara.
+  };
+
+  const mask = IMask(cardExpirationInput, maskOptions);
+
+  cardExpirationInput.addEventListener('input', function() {
+    if (!mask.isComplete) {
+      cardExpirationInput.setCustomValidity('Ingrese una fecha válida en formato MM/AA');
+    } else {
+      cardExpirationInput.setCustomValidity('');
+    }
+  });
+});
+
+//Ocultar numero de cuenta
+document.addEventListener('DOMContentLoaded', function() {
+  const accountNumberInput = document.getElementById('formAccountNumber');
+  const hideAccountIcon = document.getElementById('hideAccount');
+
+  hideAccountIcon.addEventListener('click', function() {
+    if (accountNumberInput.type === 'password') {
+      accountNumberInput.type = 'number';
+      hideAccountIcon.innerHTML = '<i class="fa fa-eye-slash"></i>';
+    } else {
+      accountNumberInput.type = 'password';
+      hideAccountIcon.innerHTML = '<i class="fa fa-eye"></i>';
+    }
+  });
+});

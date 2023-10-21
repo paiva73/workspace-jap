@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.css"> <!-- Libreria Material Design boostrap -MDB-(https://mdbootstrap.com/) para payment modal -->
 </head>
 
 <body>
@@ -171,69 +172,101 @@
                   <i class="fa fa-close close" data-dismiss="modal"></i>
                 </div>
                 <div class="tabs mt-3">
+                  
                   <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item" role="presentation">
                       <a class="nav-link active" id="visa-tab" data-toggle="tab" href="#visa" role="tab" aria-controls="visa" aria-selected="true">
-                        <img src="https://i.imgur.com/sB4jftM.png" width="80">
+                        <img src="../img/tarjeta.png" alt="Transferencia" width="38">
                       </a>
                     </li>
                     <li class="nav-item" role="presentation">
-                      <a class="nav-link" id "paypal-tab" data-toggle="tab" href="#paypal" role="tab" aria-controls="paypal" aria-selected="false">
-                        <img src="https://i.imgur.com/yK7EDD1.png" width="80">
+                      <a class="nav-link" id = "transferencia-tab" data-toggle="tab" href="#transferencia" role="tab" aria-controls="transferencia" aria-selected="false">
+                        <img src="../img/transferencia.png" alt="Transferencia" width="35">
                       </a>
                     </li>
                   </ul>
+
                   <div class="tab-content" id="myTabContent">
+                    <!-- Tarjeta de credito -->
                     <div class="tab-pane fade show active" id="visa" role="tabpanel" aria-labelledby="visa-tab">
                       <div class="mt-4 mx-4">
                         <div class="text-center">
-                          <h5>Credit card</h5>
+                          <h5>Tarjeta de crédito</h5>
                         </div>
-                        <div class="form mt-3">
+                        <div class="form mt-4">
 
-                          <div class="inputbox">
-                            <input id="cardName" type="text" class="form-control" required="required">
-                            <span>Cardholder Name</span>
+                          <div class="form-outline mb-3">
+                            <input id="formCardName" type="text" class="form-control" required="required" oninput="validateName(this)">
+                            <label class="form-label" for="formCardName">Nombre del titular</label>
                           </div>
-
-                          <div class="inputbox">
-                            <input id="cardNumber" type="number" class="form-control" required="required">
-                            <span>Card Number</span>
-                            <i class="fa fa-eye"></i>
+                          
+                          <div class="mb-3">
+                            <div class="input-group form-outline">
+                              <input id="formCardNumber" type="text" class="form-control" required="required">
+                              <span class="input-group-text" id="hideNumber">
+                                <i class="fa fa-eye-slash"></i>
+                              </span>
+                              <label class="form-label" for="formCardNumber">Número de tarjeta</label>
+                            </div>
                           </div>
 
                           <div class="d-flex flex-row">
-
-                            <div class="inputbox">
-                              <input id="cardExpiry" type="number" min="1" max="999" class="form-control" required="required">
-                              <span>Expiration Date</span>
+                            <div class="row mb-4">
+                              <div class="col-6">
+                                <div class="form-outline">
+                                  <input id="cardExpiration" type="text" class="form-control" required="required">
+                                  <label class="form-label" for="cardExpiration">Vencimiento (MM/AA)</label>
+                                </div>
+                              </div>
+                              <div class="col-6">
+                                <div class="form-outline">
+                                  <input id="cardCVV" type="text" maxlength="3" class="form-control" required="required">
+                                  <label class="form-label" for="cardCVV">CVV</label>
+                                </div>
+                              </div>
                             </div>
-
-                            <div class="inputbox">
-                              <input id="cardCVV" type="number" max="4" class="form-control" required="required">
-                              <span>CVV</span>
-                            </div>
-
                           </div>
 
                           <div class="px-5 pay">
                             <button class="btn btn-success btn-block">Continuar</button>
                           </div>
-                           
                         </div>
                       </div>
                     </div>
-                    <div class="tab-pane fade" id="paypal" role="tabpanel" aria-labelledby="paypal-tab">
-                      <div class="px-5 mt-5">
-                        <div class="inputbox">
-                          <input type="text" name="name" class="form-control" required="required">
-                          <span>Paypal Email Address</span>
+                    <!-- Transferencia bancaria -->
+                    <div class="tab-pane fade" id="transferencia" role="tabpanel" aria-labelledby="transferencia-tab">
+
+                      <div class="mt-4 mx-4">
+                        <div class="text-center">
+                          <h5>Transferencia bancaria</h5>
                         </div>
-                        <div class="pay px-5">
-                          <button class="btn btn-primary btn-block">Add paypal</button>
+                        <div class="form mt-4">
+
+                          <div class="mb-3">
+                            <select id="formCardName" class="form-control" required="required">
+                              <option value="" disabled selected>Selecciona una institución bancaria</option>
+                                <option value="opcion1">BROU</option>
+                                <option value="opcion2">Santander</option>
+                                <option value="opcion3">Scotia Bank</option>
+                                <option value="opcion4">HSBC</option>
+                            </select>
+                          </div>
+                          
+                          <div class="mb-8">
+                            <div class="input-group form-outline">
+                              <input id="formAccountNumber" type="number" class="form-control" required="required">
+                              <span class="input-group-text" id="hideAccount"><i class="fa fa-eye-slash"></i></span>
+                              <label class="form-label" for="formAccountNumber">Número de cuenta</label>
+                            </div>
+                          </div>
+
+                          <div class="px-5 pay">
+                            <button class="btn btn-success btn-block">Continuar</button>
+                          </div>
                         </div>
                       </div>
                     </div>
+
                   </div>
                 </div>
               </div>
@@ -274,6 +307,10 @@
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="js/init.js"></script>
   <script src="js/cart.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.js"></script> <!-- Libreria Material Design boostrap -MDB- (https://mdbootstrap.com/) para payment modal -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Máscara para tarjeta de crédito -->
+  <script src="https://cdn.jsdelivr.net/npm/inputmask@5.0.3/dist/jquery.inputmask.min.js"></script> <!-- Máscara para tarjeta de crédito -->
+  <script src="https://cdn.jsdelivr.net/npm/imask"></script> <!-- Máscara para fecha mm/aa -->
 </body>
 
 </html>
