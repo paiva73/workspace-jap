@@ -13,6 +13,8 @@
   <!-- Bootrstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
@@ -71,87 +73,175 @@
           </div>
         </div>
       </section>
-      <!-- Formulario con datos del envio -->
-      <div class="form container">
-        <form class="row g-3 needs-validation" novalidate>
-          <div class="container">
-            <h2>Tipo de envío</h2>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" id="premium" name="envio">
-              <label class="form-check-label" for="premium">Premium de 2 a 5 días</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" id="express" name="envio">
-              <label class="form-check-label" for="express">Express de 5 a 8 días</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" id="estandar" name="envio">
-              <label class="form-check-label" for="estandar">Estándar 12 a 15 días</label>
+      <section id="envios">
+          <div class="form container">
+            <form class="row g-3 needs-validation" novalidate>
+              <div class="container">
+                <h2>Tipo de envío</h2>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" id="premium" name="envio">
+                  <label class="form-check-label" for="premium">Premium de 2 a 5 días</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" id="express" name="envio">
+                  <label class="form-check-label" for="express">Express de 5 a 8 días</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" id="estandar" name="envio">
+                  <label class="form-check-label" for="estandar">Estándar 12 a 15 días</label>
+                </div>
+              </div>
+                <h2>Datos</h2>
+              <div class="col-md-4 position-relative">
+                <label for="validationTooltip00" class="form-label">Calle</label>
+                <input type="text" class="form-control" id="validationTooltip00"  required>
+                <div class="valid-tooltip">
+                </div>
+              </div>
+              <div class="col-md-4 position-relative">
+                <label for="validationTooltip01" class="form-label">Esquina</label>
+                <input type="text" class="form-control" id="validationTooltip01"  required>
+                <div class="valid-tooltip">
+                </div>
+              </div>
+              <div class="col-md-4 position-relative">
+                <label for="validationTooltip02" class="form-label">Número</label>
+                <input type="number" class="form-control" id="validationTooltip02"  required>
+                <div class="valid-tooltip">
+                </div>
+              </div>
+              <div class="col-md-6 position-relative">
+                <label for="validationTooltip03" class="form-label">Ciudad</label>
+                <input type="text" class="form-control" id="validationTooltip03" required>
+                <div class="invalid-tooltip">
+                </div>
+              </div>
+              <div class="col-md-3 position-relative">
+                <label for="validationTooltip04" class="form-label">Departamento</label>
+                <select class="form-select" id="validationTooltip04" required>
+                  <option selected disabled value="">Seleciona uno...</option>
+                  <option value="dpto1">Artigas</option>
+                  <option value="dpto2">Canelones</option>
+                  <option value="dpto3">Cerro Largo</option>
+                  <option value="dpto4">Colonia</option>
+                  <option value="dpto5">Durazno</option>
+                  <option value="dpto6">Flores</option>
+                  <option value="dpto7">Florida</option>
+                  <option value="dpto8">Lavalleja</option>
+                  <option value="dpto9">Maldonado</option>
+                  <option value="dpto10">Montevideo</option>
+                  <option value="dpto11">Paysandú</option>
+                  <option value="dpto12">Río Negro</option>
+                  <option value="dpto13">Rivera</option>
+                  <option value="dpto14">Rocha</option>
+                  <option value="dpto15">Salto</option>
+                  <option value="dpto16">San José</option>
+                  <option value="dpto17">Soriano</option>
+                  <option value="dpto18">Tacuarembó</option>
+                  <option value="dpto19">Treinta y Tres</option>
+                </select>
+                <div class="invalid-tooltip">
+                </div>
+              </div>
+              <div class="col-md-3 position-relative">
+                <label for="validationTooltip05" class="form-label">Código postal</label>
+                <input type="number" class="form-control" id="validationTooltip05" required>
+                <div class="invalid-tooltip">
+                </div>
+              </div>
+              <div class="col-12">
+                <button class="btn btn-primary" type="submit">Enviar</button>
+              </div>
+            </form>
+          </div> 
+      </section>
+
+      <section id="payment">       <!-- payment modal  -->
+
+        <button type="button" class="btn btn-primary launch" data-toggle="modal" data-target="#staticBackdrop">
+          <i></i> Agregar metodo de Pago
+        </button>        
+        
+        <!-- Modal -->
+        <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-body">
+                <div class="text-right">
+                  <i class="fa fa-close close" data-dismiss="modal"></i>
+                </div>
+                <div class="tabs mt-3">
+                  <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                      <a class="nav-link active" id="visa-tab" data-toggle="tab" href="#visa" role="tab" aria-controls="visa" aria-selected="true">
+                        <img src="https://i.imgur.com/sB4jftM.png" width="80">
+                      </a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <a class="nav-link" id "paypal-tab" data-toggle="tab" href="#paypal" role="tab" aria-controls="paypal" aria-selected="false">
+                        <img src="https://i.imgur.com/yK7EDD1.png" width="80">
+                      </a>
+                    </li>
+                  </ul>
+                  <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="visa" role="tabpanel" aria-labelledby="visa-tab">
+                      <div class="mt-4 mx-4">
+                        <div class="text-center">
+                          <h5>Credit card</h5>
+                        </div>
+                        <div class="form mt-3">
+
+                          <div class="inputbox">
+                            <input id="cardName" type="text" class="form-control" required="required">
+                            <span>Cardholder Name</span>
+                          </div>
+
+                          <div class="inputbox">
+                            <input id="cardNumber" type="number" class="form-control" required="required">
+                            <span>Card Number</span>
+                            <i class="fa fa-eye"></i>
+                          </div>
+
+                          <div class="d-flex flex-row">
+
+                            <div class="inputbox">
+                              <input id="cardExpiry" type="number" min="1" max="999" class="form-control" required="required">
+                              <span>Expiration Date</span>
+                            </div>
+
+                            <div class="inputbox">
+                              <input id="cardCVV" type="number" max="4" class="form-control" required="required">
+                              <span>CVV</span>
+                            </div>
+
+                          </div>
+
+                          <div class="px-5 pay">
+                            <button class="btn btn-success btn-block">Continuar</button>
+                          </div>
+                           
+                        </div>
+                      </div>
+                    </div>
+                    <div class="tab-pane fade" id="paypal" role="tabpanel" aria-labelledby="paypal-tab">
+                      <div class="px-5 mt-5">
+                        <div class="inputbox">
+                          <input type="text" name="name" class="form-control" required="required">
+                          <span>Paypal Email Address</span>
+                        </div>
+                        <div class="pay px-5">
+                          <button class="btn btn-primary btn-block">Add paypal</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-             <h2>Datos</h2>
-          <div class="col-md-4 position-relative">
-            <label for="validationTooltip00" class="form-label">Calle</label>
-            <input type="text" class="form-control" id="validationTooltip00"  required>
-            <div class="valid-tooltip">
-            </div>
-          </div>
-          <div class="col-md-4 position-relative">
-            <label for="validationTooltip01" class="form-label">Esquina</label>
-            <input type="text" class="form-control" id="validationTooltip01"  required>
-            <div class="valid-tooltip">
-            </div>
-          </div>
-          <div class="col-md-4 position-relative">
-            <label for="validationTooltip02" class="form-label">Número</label>
-            <input type="number" class="form-control" id="validationTooltip02"  required>
-            <div class="valid-tooltip">
-            </div>
-          </div>
-          <div class="col-md-6 position-relative">
-            <label for="validationTooltip03" class="form-label">Ciudad</label>
-            <input type="text" class="form-control" id="validationTooltip03" required>
-            <div class="invalid-tooltip">
-            </div>
-          </div>
-          <div class="col-md-3 position-relative">
-            <label for="validationTooltip04" class="form-label">Departamento</label>
-            <select class="form-select" id="validationTooltip04" required>
-              <option selected disabled value="">Seleciona uno...</option>
-              <option value="dpto1">Artigas</option>
-              <option value="dpto2">Canelones</option>
-              <option value="dpto3">Cerro Largo</option>
-              <option value="dpto4">Colonia</option>
-              <option value="dpto5">Durazno</option>
-              <option value="dpto6">Flores</option>
-              <option value="dpto7">Florida</option>
-              <option value="dpto8">Lavalleja</option>
-              <option value="dpto9">Maldonado</option>
-              <option value="dpto10">Montevideo</option>
-              <option value="dpto11">Paysandú</option>
-              <option value="dpto12">Río Negro</option>
-              <option value="dpto13">Rivera</option>
-              <option value="dpto14">Rocha</option>
-              <option value="dpto15">Salto</option>
-              <option value="dpto16">San José</option>
-              <option value="dpto17">Soriano</option>
-              <option value="dpto18">Tacuarembó</option>
-              <option value="dpto19">Treinta y Tres</option>
-            </select>
-            <div class="invalid-tooltip">
-            </div>
-          </div>
-          <div class="col-md-3 position-relative">
-            <label for="validationTooltip05" class="form-label">Código postal</label>
-            <input type="number" class="form-control" id="validationTooltip05" required>
-            <div class="invalid-tooltip">
-            </div>
-          </div>
-          <div class="col-12">
-            <button class="btn btn-primary" type="submit">Enviar</button>
-          </div>
-        </form>
-       </div>
+        </div>
+      </section>
+
     </div>
     
   </main>
@@ -179,6 +269,8 @@
       <div></div>
     </div>
   </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="js/init.js"></script>
   <script src="js/cart.js"></script>

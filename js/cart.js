@@ -19,6 +19,7 @@ async function getAndShowCartArticles(url){
     console.log(error);
   }
 }
+
 function showCartArticles(articles) {
   for (const article of articles) {
     cartContainer.innerHTML += `
@@ -55,6 +56,7 @@ function showCartArticles(articles) {
   `
   }
 }
+
 //Funcion para aumentar el "value" del form1
 function funUp(item) {
   let product = JSON.parse(decodeURIComponent(item));
@@ -65,6 +67,7 @@ function funUp(item) {
  `
  form1.stepUp();
 }
+
 //Funcion  para disiminuir el value del form1 y validar que el resultado no sea negativo
 function funDown(item) {
   let product = JSON.parse(decodeURIComponent(item));
@@ -79,6 +82,7 @@ function funDown(item) {
  `
  form1.stepDown();
 }
+
 //Función que borra un producto del carrito.
 function removeFromCart(articleId) {
   const articleElement = document.getElementById(articleId);
