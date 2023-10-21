@@ -118,7 +118,7 @@ const estandar = document.getElementById('estandar');
 function converterToUSD(product) {
   let costInUSD = product.cost || product.unitCost ;
   if(product.currency == "UYU" ) {
-    costInUSD = product.cost || product.unitCost / 39;
+    costInUSD = product.cost / 39 || product.unitCost / 39;
   }
   return costInUSD;
 }
