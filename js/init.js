@@ -85,6 +85,8 @@ document.addEventListener("DOMContentLoaded", () => {
 //Dark mode
 const bgLight = document.querySelectorAll('.btn');
 const navLight = document.querySelector('.navbar');
+const frmLabel = document.querySelector('.form-label');
+
 //Función que cambia estilos del navbar.
 function changeNavbarColor(theme) {
   if(theme == 'dark'){
@@ -110,6 +112,23 @@ function changeButtonsColor(theme){
   }
   
 }
+
+//Función que cambia estilos de los form-label.
+function changeLabelColor(theme){
+  if(theme == 'dark'){
+    for (const iterator of frmLabel) {
+      iterator.classList.add('form-label-dark');
+      iterator.classList.remove('form-label-light');
+    }
+  } else {
+    for (const iterator of frmLabel) {
+      iterator.classList.remove('form-label-dark');
+      iterator.classList.add('form-label-light');
+    }
+  }
+  
+}
+
 //Función que cambia el ícono.
 function changeIcon(theme) {
   let iconModo = document.getElementById('icon');
@@ -131,3 +150,4 @@ function changeMode() {
   changeNavbarColor(newTheme);
   changeIcon(newTheme);
 }
+

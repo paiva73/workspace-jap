@@ -11,11 +11,11 @@
   <link href="css/styles.css" rel="stylesheet">
   <link rel="stylesheet" href="css/cart.css">
   <!-- Bootrstrap -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.css"> 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.css"> <!-- Libreria Material Design boostrap -MDB-(https://mdbootstrap.com/) para payment modal -->
 </head>
 
 <body>
@@ -94,31 +94,31 @@
               </div>
                 <h2>Datos</h2>
               <div class="col-md-4 position-relative">
-                <label for="validationTooltip00" class="form-label">Calle</label>
+                <label for="validationTooltip00" class="form-label-dark">Calle</label>
                 <input type="text" class="form-control" id="validationTooltip00"  required>
                 <div class="valid-tooltip">
                 </div>
               </div>
               <div class="col-md-4 position-relative">
-                <label for="validationTooltip01" class="form-label">Esquina</label>
+                <label for="validationTooltip01" class="form-label-dark">Esquina</label>
                 <input type="text" class="form-control" id="validationTooltip01"  required>
                 <div class="valid-tooltip">
                 </div>
               </div>
               <div class="col-md-4 position-relative">
-                <label for="validationTooltip02" class="form-label">Número</label>
+                <label for="validationTooltip02" class="form-label-dark">Número</label>
                 <input type="number" class="form-control" id="validationTooltip02"  required>
                 <div class="valid-tooltip">
                 </div>
               </div>
               <div class="col-md-6 position-relative">
-                <label for="validationTooltip03" class="form-label">Ciudad</label>
+                <label for="validationTooltip03" class="form-label-dark">Ciudad</label>
                 <input type="text" class="form-control" id="validationTooltip03" required>
                 <div class="invalid-tooltip">
                 </div>
               </div>
               <div class="col-md-3 position-relative">
-                <label for="validationTooltip04" class="form-label">Departamento</label>
+                <label for="validationTooltip04" class=form-label-dark">Departamento</label>
                 <select class="form-select" id="validationTooltip04" required>
                   <option selected disabled value="">Seleciona uno...</option>
                   <option value="dpto1">Artigas</option>
@@ -145,7 +145,7 @@
                 </div>
               </div>
               <div class="col-md-3 position-relative">
-                <label for="validationTooltip05" class="form-label">Código postal</label>
+                <label for="validationTooltip05" class="form-label-dark">Código postal</label>
                 <input type="number" class="form-control" id="validationTooltip05" required>
                 <div class="invalid-tooltip">
                 </div>
@@ -174,7 +174,7 @@
                   <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item" role="presentation">
                       <a class="nav-link active" id="visa-tab" data-toggle="tab" href="#visa" role="tab" aria-controls="visa" aria-selected="true">
-                        <img src="../img/tarjeta.png" alt="Transferencia" width="38">
+                        <img id="tarjetaImage" src="../img/tarjeta.png" alt="Transferencia" width="38">
                       </a>
                     </li>
                     <li class="nav-item" role="presentation">
