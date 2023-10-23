@@ -151,13 +151,15 @@ function changeModalColor(theme){
 
 //Función que cambia estilos de las imagenes del payment modal.
 function changeimgColor(theme){
-  if(theme == 'dark'){
-      img1.classList.add('invert-dark');
-      img2.classList.add('invert-dark');
-    } else { 
-      img1.classList.remove('invert-dark');
-      img2.classList.remove('invert-dark');
+  if (img1 !== null){
+    if(theme == 'dark'){
+        img1.classList.add('invert-dark');
+        img2.classList.add('invert-dark');
+      } else { 
+        img1.classList.remove('invert-dark');
+        img2.classList.remove('invert-dark');
     }
+  }
 }
 
 
