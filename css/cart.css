@@ -144,5 +144,5 @@
     
     /* imagenes de modal para el modo oscuro */
     img.invert-dark {
-        filter: invert(100%);
+        filter: invert(50%);
     }
