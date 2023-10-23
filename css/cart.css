@@ -142,3 +142,7 @@
         border-radius: 37px;
     }
     
+    /* imagenes de modal para el modo oscuro */
+    img.invert-dark {
+        filter: invert(100%);
+    }

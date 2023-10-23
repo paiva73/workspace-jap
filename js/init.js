@@ -77,6 +77,8 @@ document.addEventListener("DOMContentLoaded", () => {
       changeButtonsColor(savedTheme);
       changeNavbarColor(savedTheme);
       changeIcon(savedTheme);
+      changeModalColor(savedTheme);
+      changeimgColor(savedTheme);
     }
     document.getElementById("icon").addEventListener("click", changeMode);
   createDropDown();
@@ -85,7 +87,10 @@ document.addEventListener("DOMContentLoaded", () => {
 //Dark mode
 const bgLight = document.querySelectorAll('.btn');
 const navLight = document.querySelector('.navbar');
-const frmLabel = document.querySelector('.form-label');
+const frmLabel = document.querySelectorAll('.form-label');
+const frmModal = document.querySelectorAll('.form-outline');
+const img1 = document.getElementById("tarjetaImage");
+const img2 = document.getElementById("transfImage");
 
 //Función que cambia estilos del navbar.
 function changeNavbarColor(theme) {
@@ -129,6 +134,33 @@ function changeLabelColor(theme){
   
 }
 
+//Función que cambia estilos de los label del payment modal.
+function changeModalColor(theme){
+  if(theme != 'dark'){
+    for (const iterator of frmModal) {
+      iterator.classList.add('form-white');
+      iterator.classList.remove('form-white');
+    }
+  } else { 
+    for (const iterator of frmModal) {
+      iterator.classList.remove('form-white');
+      iterator.classList.add('form-white');
+    }
+  }
+}
+
+//Función que cambia estilos de las imagenes del payment modal.
+function changeimgColor(theme){
+  if(theme == 'dark'){
+      img1.classList.add('invert-dark');
+      img2.classList.add('invert-dark');
+    } else { 
+      img1.classList.remove('invert-dark');
+      img2.classList.remove('invert-dark');
+    }
+}
+
+
 //Función que cambia el ícono.
 function changeIcon(theme) {
   let iconModo = document.getElementById('icon');
@@ -149,5 +181,7 @@ function changeMode() {
   changeButtonsColor(newTheme);
   changeNavbarColor(newTheme);
   changeIcon(newTheme);
+  changeModalColor(newTheme);
+  changeimgColor(newTheme);
 }
 
