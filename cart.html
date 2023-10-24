@@ -75,43 +75,47 @@
       <div class="form container">
         <form class="row g-3 needs-validation" novalidate>
           <div class="container">
-            <h2>Tipo de envío</h2>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" id="premium" name="envio">
-              <label class="form-check-label" for="premium">Premium de 2 a 5 días</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" id="express" name="envio">
-              <label class="form-check-label" for="express">Express de 5 a 8 días</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" id="estandar" name="envio">
-              <label class="form-check-label" for="estandar">Estándar 12 a 15 días</label>
-            </div>
+              <h2>Tipo de envío</h2>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" id="premium" name="envio" required>
+                <label class="form-check-label" for="premium">Premium de 2 a 5 días</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" id="express" value="express" name="envio">
+                <label class="form-check-label" for="express">Express de 5 a 8 días</label >
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" id="estandar" value="estandar" name="envio" >
+                <label class="form-check-label" for="estandar">Estándar 12 a 15 días</label>
+              </div>
           </div>
              <h2>Datos</h2>
           <div class="col-md-4 position-relative">
             <label for="validationTooltip00" class="form-label">Calle</label>
             <input type="text" class="form-control" id="validationTooltip00"  required>
-            <div class="valid-tooltip">
+            <div class="invalid-feedback">
+              Debe ingresar nombre de calle
             </div>
           </div>
           <div class="col-md-4 position-relative">
             <label for="validationTooltip01" class="form-label">Esquina</label>
             <input type="text" class="form-control" id="validationTooltip01"  required>
-            <div class="valid-tooltip">
+            <div class="invalid-feedback">
+              Debe ingresar nombre de esquina
             </div>
           </div>
           <div class="col-md-4 position-relative">
             <label for="validationTooltip02" class="form-label">Número</label>
             <input type="number" class="form-control" id="validationTooltip02"  required>
-            <div class="valid-tooltip">
+            <div class="invalid-feedback">
+              Debe ingresar número de puerta
             </div>
           </div>
           <div class="col-md-6 position-relative">
             <label for="validationTooltip03" class="form-label">Ciudad</label>
             <input type="text" class="form-control" id="validationTooltip03" required>
-            <div class="invalid-tooltip">
+            <div class="invalid-feedback">
+              Debe ingresar nombre de ciudad
             </div>
           </div>
           <div class="col-md-3 position-relative">
@@ -138,20 +142,22 @@
               <option value="dpto18">Tacuarembó</option>
               <option value="dpto19">Treinta y Tres</option>
             </select>
-            <div class="invalid-tooltip">
+            <div class="invalid-feedback">
+              Debe seleccionar departamento
             </div>
           </div>
           <div class="col-md-3 position-relative">
             <label for="validationTooltip05" class="form-label">Código postal</label>
             <input type="number" class="form-control" id="validationTooltip05" required>
-            <div class="invalid-tooltip">
+            <div class="invalid-feedback">
+              Debe ingresar código postal
             </div>
           </div>
           <div class="col-12">
             <button class="btn btn-primary" type="submit">Enviar</button>
           </div>
         </form>
-       </div>
+      </div>
     </div>
     
   </main>
@@ -179,9 +185,9 @@
       <div></div>
     </div>
   </div>
-  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
   <script src="js/init.js"></script>
   <script src="js/cart.js"></script>
-</body>
+  </body>
 
 </html>

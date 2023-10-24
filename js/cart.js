@@ -92,3 +92,62 @@ function removeFromCart(articleId) {
     }
   }
 }
+
+
+const enviarButton = document.querySelector('button[type="submit"]');
+enviarButton.addEventListener('click', function (event) {
+  const camposRequeridos = document.querySelectorAll('input[required]');
+  let formIsValid = true;
+
+  camposRequeridos.forEach((campo) => {
+    if (!campo.value.trim()) {
+      formIsValid = false;
+      campo.classList.add('is-invalid');
+    } else {
+      campo.classList.remove('is-invalid');
+    }
+  });
+
+  if (!formIsValid) {
+    event.preventDefault(); // Evita que se envíe el formulario si hay campos vacíos.
+  }
+});
+
+/*
+document.addEventListener("DOMContentLoaded", function() {
+  var checkboxValidationTool = document.getElementById("validationTooltip04");
+  var textoExplicativo = document.getElementById("textoExplicativo");
+
+  checkboxValidationTool.addEventListener("change", function() {
+      var botonTerminos = document.querySelector('.btn-link');
+
+      if (checkboxValidationTool.checked) {
+          botonTerminos.classList.remove("text-danger");
+          textoExplicativo.style.display = "none";
+      } else {
+          botonTerminos.classList.add("text-danger"); 
+          textoExplicativo.style.display = "inline";
+      }
+  });
+});
+*/
+
+// Example starter JavaScript for disabling form submissions if there are invalid fields
+(() => {
+  'use strict'
+
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  const forms = document.querySelectorAll('.needs-validation')
+
+  // Loop over them and prevent submission
+  Array.from(forms).forEach(form => {
+    form.addEventListener('submit', event => {
+      if (!form.checkValidity()) {
+        event.preventDefault()
+        event.stopPropagation()
+      }
+
+      form.classList.add('was-validated')
+    }, false)
+  })
+})()
