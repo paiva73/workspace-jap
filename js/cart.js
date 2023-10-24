@@ -136,14 +136,24 @@ function funcSubtotal() {
   });
   return parseInt(subtotal);
 }
-
+//Funcion para obtener el costo del envío.
+function funcShippingCost() {
+  let costEnvio;
+  if (premium.checked) {
+    costEnvio = funcSubtotal() * 0.15;
+  } else if(express.checked){
+    costEnvio = funcSubtotal() * .07;
+  } else if(estandar.checked){
+    costEnvio = funcSubtotal() * .05;    
+  }
+  return parseInt(costEnvio);
+}
 //Funcion para obtener el costo del envío.
 function showDataCost() {
   subtotal.innerText = `USD ${funcSubtotal()}`
   shippingCost.innerText = `USD ${funcShippingCost()}`;
   total.innerText = `USD ${funcSubtotal() + funcShippingCost()}`;
 }
-
 
 //Payment Modal
 
