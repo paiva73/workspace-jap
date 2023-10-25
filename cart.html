@@ -117,31 +117,31 @@
           </div>
              <h2>Datos</h2>
           <div class="col-md-4 position-relative">
-            <label for="validationTooltip00" class="form-label">Calle</label>
+            <label for="validationTooltip00" class="form-label-dark">Calle</label>
             <input type="text" class="form-control" id="validationTooltip00"  required>
             <div class="valid-tooltip">
             </div>
           </div>
           <div class="col-md-4 position-relative">
-            <label for="validationTooltip01" class="form-label">Esquina</label>
+            <label for="validationTooltip01" class="form-label-dark">Esquina</label>
             <input type="text" class="form-control" id="validationTooltip01"  required>
             <div class="valid-tooltip">
             </div>
           </div>
           <div class="col-md-4 position-relative">
-            <label for="validationTooltip02" class="form-label">Número</label>
+            <label for="validationTooltip02" class="form-label-dark">Número</label>
             <input type="number" class="form-control" id="validationTooltip02"  required>
             <div class="valid-tooltip">
             </div>
           </div>
           <div class="col-md-6 position-relative">
-            <label for="validationTooltip03" class="form-label">Ciudad</label>
+            <label for="validationTooltip03" class="form-label-dark">Ciudad</label>
             <input type="text" class="form-control" id="validationTooltip03" required>
             <div class="invalid-tooltip">
             </div>
           </div>
           <div class="col-md-3 position-relative">
-            <label for="validationTooltip04" class="form-label">Departamento</label>
+            <label for="validationTooltip04" class="form-label-dark">Departamento</label>
             <select class="form-select" id="validationTooltip04" required>
               <option selected disabled value="">Seleciona uno...</option>
               <option value="dpto1">Artigas</option>
@@ -168,7 +168,7 @@
             </div>
           </div>
           <div class="col-md-3 position-relative">
-            <label for="validationTooltip05" class="form-label">Código postal</label>
+            <label for="validationTooltip05" class="form-label-dark">Código postal</label>
             <input type="number" class="form-control" id="validationTooltip05" required>
             <div class="invalid-tooltip">
             </div>
@@ -240,13 +240,10 @@
                               </div>
                             </div>
                           </div>
-
-                          <div class="px-5 pay">
-                            <button class="btn btn-success btn-block">Continuar</button>
-                          </div>
                         </div>
                       </div>
                     </div>
+
                     <!-- Transferencia bancaria -->
                     <div class="tab-pane fade" id="transferencia" role="tabpanel" aria-labelledby="transferencia-tab">
 
@@ -273,15 +270,15 @@
                               <label class="form-label" for="formAccountNumber">Número de cuenta</label>
                             </div>
                           </div>
-
-                          <div class="px-5 pay">
-                            <button class="btn btn-success btn-block">Continuar</button>
-                          </div>
                         </div>
                       </div>
                     </div>
-
                   </div>
+
+                  <div class="px-5 pay">
+                    <button id="paymentButton" type="button" class="btn btn-success btn-block">Continuar</button>
+                  </div>
+
                 </div>
               </div>
             </div>

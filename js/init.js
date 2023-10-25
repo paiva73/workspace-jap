@@ -131,7 +131,6 @@ function changeLabelColor(theme){
       iterator.classList.add('form-label-light');
     }
   }
-  
 }
 
 //Función que cambia estilos de los label del payment modal.
