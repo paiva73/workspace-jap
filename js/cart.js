@@ -200,13 +200,17 @@ document.addEventListener('DOMContentLoaded', function() {
   const mask = IMask(cardExpirationInput, maskOptions);
 
   cardExpirationInput.addEventListener('input', function() {
-    if (!mask.isComplete) {
+    if (mask.isComplete) {
       cardExpirationInput.setCustomValidity('Ingrese una fecha válida en formato MM/AA');
     } else {
       cardExpirationInput.setCustomValidity('');
     }
   });
 });
+
+function validateNumberInput(input) {
+  input.value = input.value.replace(/\D/g, ''); // Remueve cualquier caractér que no sea numeral
+}
 
 //Ocultar numero de cuenta
 document.addEventListener('DOMContentLoaded', function() {
@@ -224,3 +228,22 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
+
+(() => {
+  'use strict'
+
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  const forms = document.querySelectorAll('.needs-validation')
+
+  // Loop over them and prevent submission
+  Array.from(forms).forEach(form => {
+    form.addEventListener('submit', event => {
+      if (!form.checkValidity()) {
+        event.preventDefault()
+        event.stopPropagation()
+      }
+
+      form.classList.add('was-validated')
+    }, false)
+  })
+})()
