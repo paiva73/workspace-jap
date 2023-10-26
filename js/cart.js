@@ -4,6 +4,9 @@ const productsInCart = JSON.parse(localStorage.getItem('productsInCart')) || [];
 
 document.addEventListener("DOMContentLoaded", () => {
   getAndShowCartArticles(CART_INFO_UR);
+  premium.addEventListener('click', showDataCost);
+  express.addEventListener('click', showDataCost);
+  estandar.addEventListener('click', showDataCost);
 })
 
 async function getAndShowCartArticles(url){
@@ -13,39 +16,49 @@ async function getAndShowCartArticles(url){
         throw new Error(`Hubo un problema con la solicitud: ${response.status}`);
       }
       const data = await response.json();
-      showCartArticles(data.articles);
+      let dataExist = productsInCart.some(function(product) {
+        return product.id == data.articles[0].id;
+      });
+      if(!dataExist){
+        productsInCart.unshift(data.articles[0]);
+        console.log(productsInCart);
+        localStorage.setItem("productsInCart", JSON.stringify(productsInCart));
+      }
       showCartArticles(productsInCart);
+      showDataCost() ;
   } catch (error) {
     console.log(error);
   }
 }
+
 function showCartArticles(articles) {
   for (const article of articles) {
     cartContainer.innerHTML += `
                     <div id="${article.id}" class="row mb-4 d-flex justify-content-between align-items-center">
-                      <div class="col-md-2 col-lg-2 col-xl-2">
+                      <div class="mb-2 col-12 col-md-2 col-lg-2 col-xl-2">
                         <img
                           src="${article.image || article.images[0]}"
                           class="img-fluid rounded-3" alt="Cotton T-shirt">
                       </div>
                       <div class="col-md-3 col-lg-3 col-xl-3">
-                        <h6 class="mb-0">${article.name}</h6>
+                        <h6 class="mb-0 d-none d-md-block">${article.name}</h6>
+                        <h6 class="mb-3 mt-2 text-center d-md-none d-block fw-bold">${article.name}</h6>
                       </div>
-                      <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+                      <div class="col-6 col-md-3 col-lg-3 col-xl-2 d-flex">
                         <button class="btn btn-link px-2"
                           onclick="funDown('${encodeURIComponent(JSON.stringify(article))}')">
                           <i class="fas fa-minus"></i>
                         </button>
 
                         <input id="form${article.id}" min="1" name="quantity" value="1" type="number"
-                          class="form-control form-control-sm" />
+                          class="form-control form-control-sm" disabled/>
   
                         <button class="btn btn-link px-2"Item
                           onclick="funUp('${encodeURIComponent(JSON.stringify(article))}')">
                           <i class="fas fa-plus"></i>
                         </button>
                       </div>
-                      <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                      <div class="col-6 col-md-3 col-lg-2 col-xl-2 offset-lg-1">
                         <h6 class="mb-0">${article.currency} <span id="unity${article.id}">${article.unitCost || article.cost}</span></h6>
                       </div>
                       <div class="col-md-1 col-lg-1 col-xl-1 text-end">
@@ -55,6 +68,7 @@ function showCartArticles(articles) {
   `
   }
 }
+
 //Funcion para aumentar el "value" del form1
 function funUp(item) {
   let product = JSON.parse(decodeURIComponent(item));
@@ -63,8 +77,11 @@ function funUp(item) {
   unity.innerHTML = `
   ${(parseFloat(form1.value)+1) * (product.cost || product.unitCost)}
  `
+ 
  form1.stepUp();
+ showDataCost();
 }
+
 //Funcion  para disiminuir el value del form1 y validar que el resultado no sea negativo
 function funDown(item) {
   let product = JSON.parse(decodeURIComponent(item));
@@ -78,7 +95,9 @@ function funDown(item) {
   ${result * (product.cost || product.unitCost)}
  `
  form1.stepDown();
+ showDataCost();
 }
+
 //Función que borra un producto del carrito.
 function removeFromCart(articleId) {
   const articleElement = document.getElementById(articleId);
@@ -92,63 +111,116 @@ function removeFromCart(articleId) {
     }
   }
 }
+const subtotal = document.getElementById('subtotal');
+const shippingCost = document.getElementById('costoEnvio');
+const total = document.getElementById('total');
+const premium = document.getElementById('premium');
+const express = document.getElementById('express');
+const estandar = document.getElementById('estandar');
 
+//Función para pasar de UYU a USD. 
+function converterToUSD(product) {
+  let costInUSD = product.cost || product.unitCost ;
+  if(product.currency == "UYU" ) {
+    costInUSD = product.cost / 39 || product.unitCost / 39;
+  }
+  return costInUSD;
+}
 
-const enviarButton = document.querySelector('button[type="submit"]');
-enviarButton.addEventListener('click', function (event) {
-  const camposRequeridos = document.querySelectorAll('input[required]');
-  let formIsValid = true;
+function funcSubtotal() {
+  let subtotal = 0;
+  productsInCart.forEach(product => {
+    const quantity = parseInt(document.getElementById(`form${product.id}`).value);
+    const costProduct = converterToUSD(product);
+    subtotal += costProduct * quantity;
+  });
+  return parseInt(subtotal);
+}
+//Funcion para obtener el costo del envío.
+function funcShippingCost() {
+  let costEnvio;
+  if (premium.checked) {
+    costEnvio = funcSubtotal() * 0.15;
+  } else if(express.checked){
+    costEnvio = funcSubtotal() * .07;
+  } else if(estandar.checked){
+    costEnvio = funcSubtotal() * .05;    
+  }
+  return parseInt(costEnvio);
+}
+//Funcion para obtener el costo del envío.
+function showDataCost() {
+  subtotal.innerText = `USD ${funcSubtotal()}`
+  shippingCost.innerText = `USD ${funcShippingCost()}`;
+  total.innerText = `USD ${funcSubtotal() + funcShippingCost()}`;
+}
 
-  camposRequeridos.forEach((campo) => {
-    if (!campo.value.trim()) {
-      formIsValid = false;
-      campo.classList.add('is-invalid');
+//Payment Modal
+
+//Restriccion del input Nombre del titular
+function validateName(name) {
+  var regex = /^[A-Za-zÁáÉéÍíÓóÚúÜüÑñ\s]+$/;       // Expresión regular que permite solo letras (mayúsculas o minúsculas).
+
+  if (!regex.test(name.value)) {                   // Si el valor no cumple con la restricción... 
+
+    name.value = name.value.slice(0, -1);          //...se borra el último carácter ingresado.
+  }
+}
+
+//Restriccion del input Tarjeta de credito (Máscara)
+$(document).ready(function() {
+  $('#formCardNumber').inputmask('9999 9999 9999 9999');
+});
+
+//Ocultar numero de tarjeta de credito
+document.addEventListener('DOMContentLoaded', function() {
+  const cardNumberInput = document.getElementById('formCardNumber');
+  const hideNumberIcon = document.getElementById('hideNumber');
+
+  hideNumberIcon.addEventListener('click', function() {
+    if (cardNumberInput.type === 'password') {
+      cardNumberInput.type = 'text';
+      hideNumberIcon.innerHTML = '<i class="fa fa-eye"></i>';
     } else {
-      campo.classList.remove('is-invalid');
+      cardNumberInput.type = 'password';
+      hideNumberIcon.innerHTML = '<i class="fa fa-eye-slash"></i>';
     }
   });
-
-  if (!formIsValid) {
-    event.preventDefault(); // Evita que se envíe el formulario si hay campos vacíos.
-  }
 });
 
-/*
-document.addEventListener("DOMContentLoaded", function() {
-  var checkboxValidationTool = document.getElementById("validationTooltip04");
-  var textoExplicativo = document.getElementById("textoExplicativo");
+//Restriccion del input fecha mm/aa
+document.addEventListener('DOMContentLoaded', function() {
+  const cardExpirationInput = document.getElementById('cardExpiration');
 
-  checkboxValidationTool.addEventListener("change", function() {
-      var botonTerminos = document.querySelector('.btn-link');
+  const maskOptions = {
+    mask: '00/00',
+    lazy: false, // No permite espacios en blanco hasta que se complete la máscara.
+  };
 
-      if (checkboxValidationTool.checked) {
-          botonTerminos.classList.remove("text-danger");
-          textoExplicativo.style.display = "none";
-      } else {
-          botonTerminos.classList.add("text-danger"); 
-          textoExplicativo.style.display = "inline";
-      }
+  const mask = IMask(cardExpirationInput, maskOptions);
+
+  cardExpirationInput.addEventListener('input', function() {
+    if (!mask.isComplete) {
+      cardExpirationInput.setCustomValidity('Ingrese una fecha válida en formato MM/AA');
+    } else {
+      cardExpirationInput.setCustomValidity('');
+    }
   });
 });
-*/
 
-// Example starter JavaScript for disabling form submissions if there are invalid fields
-(function (){
-  'use strict'
+//Ocultar numero de cuenta
+document.addEventListener('DOMContentLoaded', function() {
+  const accountNumberInput = document.getElementById('formAccountNumber');
+  const hideAccountIcon = document.getElementById('hideAccount');
 
-  // Fetch all the forms we want to apply custom Bootstrap validation styles to
-  const forms = document.querySelectorAll('.needs-validation')
+  hideAccountIcon.addEventListener('click', function() {
+    if (accountNumberInput.type === 'password') {
+      accountNumberInput.type = 'number';
+      hideAccountIcon.innerHTML = '<i class="fa fa-eye-slash"></i>';
+    } else {
+      accountNumberInput.type = 'password';
+      hideAccountIcon.innerHTML = '<i class="fa fa-eye"></i>';
+    }
+  });
+});
 
-  // Loop over them and prevent submission
-  Array.prototype.slice.call(forms)
-    .forEach(function (form) {
-      form.addEventListener('submit', function (event){
-        if (!form.checkValidity()) {
-          event.preventDefault()
-          event.stopPropagation()
-        }
-
-        form.classList.add('was-validated')
-      }, false)
-  })
-})()
