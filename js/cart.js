@@ -62,7 +62,7 @@ function showCartArticles(articles) {
                         <h6 class="mb-0">${article.currency} <span id="unity${article.id}">${article.unitCost || article.cost}</span></h6>
                       </div>
                       <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                      <a onclick="removeFromCart('${article.id}')" href="#!" class="text-muted"><i class="fas fa-times" ></i></a>
+                      <a onclick="removeFromCart('${article.id}')" href="#!" class="text-muted"><i class="bi bi-trash btn btn-outline-danger" ></i></a>
                       </div>
                     </div>
   `
@@ -98,6 +98,8 @@ function funDown(item) {
  showDataCost();
 }
 
+
+
 //Función que borra un producto del carrito.
 function removeFromCart(articleId) {
   const articleElement = document.getElementById(articleId);
@@ -108,9 +110,13 @@ function removeFromCart(articleId) {
       let indice = productsInCart.indexOf(product);
       productsInCart.splice(indice, 1);
       localStorage.setItem('productsInCart', JSON.stringify(productsInCart));
+      showDataCost()
+
     }
   }
 }
+
+
 const subtotal = document.getElementById('subtotal');
 const shippingCost = document.getElementById('costoEnvio');
 const total = document.getElementById('total');
