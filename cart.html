@@ -116,31 +116,35 @@
             </div>
           </div>
              <h2>Datos</h2>
-          <div class="col-md-4 position-relative">
+          <div class="col-md-4 position-relative mt-5">
             <label for="validationTooltip00" class="form-label-dark">Calle</label>
-            <input type="text" class="form-control" id="validationTooltip00"  required>
-            <div class="valid-tooltip">
+            <input type="text" class="form-control m-0" id="validationTooltip00"  required>
+            <div class="invalid-feedback">
+                Debe ingresar nombre de calle
             </div>
           </div>
-          <div class="col-md-4 position-relative">
+          <div class="col-md-4 position-relative mt-5">
             <label for="validationTooltip01" class="form-label-dark">Esquina</label>
-            <input type="text" class="form-control" id="validationTooltip01"  required>
-            <div class="valid-tooltip">
+            <input type="text" class="form-control m-0" id="validationTooltip01"  required>
+            <div class="invalid-feedback">
+                Debe ingresar nombre de esquina
             </div>
           </div>
-          <div class="col-md-4 position-relative">
+          <div class="col-md-4 position-relative mt-5">
             <label for="validationTooltip02" class="form-label-dark">Número</label>
-            <input type="number" class="form-control" id="validationTooltip02"  required>
-            <div class="valid-tooltip">
+            <input type="number" class="form-control m-0" id="validationTooltip02"  required>
+            <div class="invalid-feedback">
+              Debe ingresar número de puerta
             </div>
           </div>
-          <div class="col-md-6 position-relative">
+          <div class="col-md-6 position-relative mt-5">
             <label for="validationTooltip03" class="form-label-dark">Ciudad</label>
-            <input type="text" class="form-control" id="validationTooltip03" required>
-            <div class="invalid-tooltip">
+            <input type="text" class="form-control m-0" id="validationTooltip03" required>
+            <div class="invalid-feedback">
+              Debe ingresar ciudad
             </div>
           </div>
-          <div class="col-md-3 position-relative">
+          <div class="col-md-3 position-relative mt-5">
             <label for="validationTooltip04" class="form-label-dark">Departamento</label>
             <select class="form-select" id="validationTooltip04" required>
               <option selected disabled value="">Seleciona uno...</option>
@@ -164,18 +168,22 @@
               <option value="dpto18">Tacuarembó</option>
               <option value="dpto19">Treinta y Tres</option>
             </select>
-            <div class="invalid-tooltip">
+            <div class="invalid-feedback">
+              Debe seleccionar un departamento
             </div>
           </div>
-          <div class="col-md-3 position-relative">
+          <div class="col-md-3 position-relative mt-5">
             <label for="validationTooltip05" class="form-label-dark">Código postal</label>
-            <input type="number" class="form-control" id="validationTooltip05" required>
-            <div class="invalid-tooltip">
+            <input type="number" class="form-control m-0" id="validationTooltip05" required>
+            <div class="invalid-feedback">
+              Debe ingresar código postal
             </div>
           </div>
+        <div class="text-center d-grid gap-2 mt-5">
           <button type="button" class="btn btn-primary launch" data-toggle="modal" data-target="#staticBackdrop">
             <i></i> Agregar metodo de Pago
-          </button>  
+          </button> 
+        </div>
                 <!-- payment modal  -->
       <section id="payment">             
         <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -216,7 +224,7 @@
                           
                           <div class="mb-3">
                             <div class="input-group form-outline">
-                              <input id="formCardNumber" type="text" class="form-control" required="required">
+                              <input id="formCardNumber" type="text" pattern="[0-9]{16}" class="form-control" required="required">
                               <span class="input-group-text" id="hideNumber">
                                 <i class="fa fa-eye-slash"></i>
                               </span>
@@ -234,7 +242,7 @@
                               </div>
                               <div class="col-6">
                                 <div class="form-outline">
-                                  <input id="cardCVV" type="text" maxlength="3" class="form-control" required="required">
+                                  <input id="cardCVV" type="text" pattern="[0-9]{3}" maxlength="3" class="form-control" oninput="validateNumberInput(this)" required="required">
                                   <label class="form-label" for="cardCVV">CVV</label>
                                 </div>
                               </div>
@@ -261,8 +269,11 @@
                                 <option value="opcion3">Scotia Bank</option>
                                 <option value="opcion4">HSBC</option>
                             </select>
+                            <div class="invalid-feedback">
+                             
+                            </div>
                           </div>
-                          
+
                           <div class="mb-8">
                             <div class="input-group form-outline">
                               <input id="formAccountNumber" type="number" class="form-control" required="required">
