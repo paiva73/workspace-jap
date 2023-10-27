@@ -179,9 +179,9 @@
               Debe ingresar código postal
             </div>
           </div>
-        <div class="text-center d-grid gap-2 mt-5">
-          <button type="button" class="btn btn-primary launch" data-toggle="modal" data-target="#staticBackdrop">
-            <i></i> Agregar metodo de Pago
+        <div class="text-center gap-2 mt-5">
+          <button type="button" class="btn btn-primary launch text-lowercase" data-toggle="modal" data-target="#staticBackdrop">
+            <i></i> <span class="text-uppercase">A</span>gregar método de <span class="text-uppercase">P</span>ago
           </button> 
         </div>
                 <!-- payment modal  -->
@@ -236,7 +236,7 @@
                               <div class="d-flex flex-row ">
                                 <div class="row">
                                   <div class="form-group col-md-6 mt-4">
-                                    <label for="expiration-date">Fecha de Vencimiento</label>
+                                    <label for="expiration-date">Vencimiento</label>
                                     <input type="text" class="form-control mb-0" id="expiration-date" placeholder="MM/YY" required maxlength="5" inputmode="numeric">
                                     <div class="invalid-feedback">
                                         Ingrese una fecha válida.
@@ -245,7 +245,7 @@
     
                                   <div class="form-group col-md-6 mt-4">
                                     <label for="cvv">CVV</label>
-                                    <input type="text" class="form-control mb-0" id="cvv" placeholder="XXX" required maxlength="3" inputmode="numeric">
+                                    <input type="text" class="form-control mb-0" id="cvv" pattern="[0-9]{3}" oninput="validateNumberInput(this)" placeholder="XXX" required maxlength="3" inputmode="numeric">
                                     <div class="invalid-feedback">
                                         Ingrese un CVV válido.
                                     </div>
@@ -301,8 +301,8 @@
           </div>
         </div>
       </section>
-          <div class="col-12">
-            <button class="btn btn-primary" type="submit">Enviar</button>
+          <div class="col-12 d-grid">
+            <button class="btn btn-primary bg-primary py-2 text-lowercase" type="submit" id="submit-transaction"> <span class="text-uppercase">E</span>nviar</button>
           </div>
         </form>
        </div>
@@ -333,6 +333,7 @@
       <div></div>
     </div>
   </div>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="js/bootstrap.bundle.min.js"></script>

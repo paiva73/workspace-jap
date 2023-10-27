@@ -174,7 +174,17 @@ function showDataCost() {
         event.preventDefault()
         event.stopPropagation()
       }
+      else{             
+        event.preventDefault()
+        Swal.fire({
+        icon: 'success',
+        title: 'Su compra ha sido realizada exitosamente!',
+        showConfirmButton: false,
+        timer: 1800
+      });
+      setTimeout(function() {   location.reload(); }, 2000);
 
+      }
       form.classList.add('was-validated')
     }, false)
   })
@@ -209,6 +219,11 @@ $('#expiration-date').on('input', function() {
       $(this).removeClass('is-valid').addClass('is-invalid');
   }
 });
+
+// Remueve cualquier caractér que no sea numeral
+function validateNumberInput(input) {
+  input.value = input.value.replace(/\D/g, ''); 
+}
 
 // Validación personalizada para el CVV
 $('#cvv').on('input', function() {
