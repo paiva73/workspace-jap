@@ -161,33 +161,54 @@ function showDataCost() {
   total.innerText = `USD ${funcSubtotal() + funcShippingCost()}`;
 }
 
+let contador = 0;
 (() => {
   'use strict'
+  const modal = document.getElementById('payment');
+  const form0 = document.getElementById('form0');
+  const form1 = document.getElementById('visa');
+  const form2 = document.getElementById('transferencia');
+  const select1 = document.getElementById('visa-tab');
+  const select2 = document.getElementById('transferencia-tab');
 
+  modal.addEventListener('click', function(event){
+    if (event.target === select1) {
+      form1.removeAttribute('disabled');
+      form2.setAttribute('disabled', true);
+    
+    } else if (event.target === select2) {
+      form2.removeAttribute('disabled');
+      form1.setAttribute('disabled', true);
+      
+    }
+  });
   // Fetch all the forms we want to apply custom Bootstrap validation styles to
-  const forms = document.querySelectorAll('.needs-validation')
-
+  const forms = document.querySelectorAll('.needs-validation');
+  
   // Loop over them and prevent submission
   Array.from(forms).forEach(form => {
     form.addEventListener('submit', event => {
-      if (!form.checkValidity()) {
-        event.preventDefault()
-        event.stopPropagation()
-      }
-      else{             
-        event.preventDefault()
+      if((form1.checkValidity() || form2.checkValidity()) && form0.checkValidity()) {
+        event.preventDefault();
+        event.stopPropagation();
         Swal.fire({
-        icon: 'success',
-        title: 'Su compra ha sido realizada exitosamente!',
-        showConfirmButton: false,
-        timer: 1800
-      });
-      setTimeout(function() {   location.reload(); }, 2000);
-
+          icon: 'success',
+          title: 'Su compra ha sido realizada con éxito!',
+          showConfirmButton: false,
+          timer: 1800
+          });
+      
+          setTimeout(() => {location.reload()}, 2000);
+      } else {
+        event.preventDefault();
+        event.stopPropagation();
       }
-      form.classList.add('was-validated')
+
+      form0.classList.add('was-validated');
+      form.classList.add('was-validated');
     }, false)
   })
+  
 })()
 
 // Validación personalizada para el titular de tarjeta
@@ -219,11 +240,6 @@ $('#expiration-date').on('input', function() {
       $(this).removeClass('is-valid').addClass('is-invalid');
   }
 });
-
-// Remueve cualquier caractér que no sea numeral
-function validateNumberInput(input) {
-  input.value = input.value.replace(/\D/g, ''); 
-}
 
 // Validación personalizada para el CVV
 $('#cvv').on('input', function() {
