@@ -193,7 +193,7 @@ let contador = 0;
         event.stopPropagation();
         Swal.fire({
           icon: 'success',
-          title: 'Su compra ha sido realizada exitosamente!',
+          title: 'Su compra ha sido realizada con éxito!',
           showConfirmButton: false,
           timer: 1800
           });
