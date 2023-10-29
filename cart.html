@@ -16,6 +16,9 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <!-- Toastify -->
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 </head>
 
 <body>
@@ -99,7 +102,7 @@
       </section>
       <!-- Formulario con datos del envio -->
       <div class="form container">
-        <form class="row g-3 needs-validation" novalidate>
+        <form class="row g-3 needs-validation" novalidate id="form0">
           <div class="container">
             <h2>Tipo de envío</h2>
             <div class="form-check">
@@ -179,12 +182,17 @@
               Debe ingresar código postal
             </div>
           </div>
-        <div class="text-center gap-2 mt-5">
-          <button type="button" class="btn btn-primary launch text-lowercase" data-toggle="modal" data-target="#staticBackdrop">
-            <i></i> <span class="text-uppercase">A</span>gregar método de <span class="text-uppercase">P</span>ago
-          </button> 
-        </div>
-                <!-- payment modal  -->
+          <div class="text-center gap-2 mt-5">
+            <button type="button" class="btn btn-primary launch text-lowercase" data-toggle="modal" data-target="#staticBackdrop">
+              <i></i> <span class="text-uppercase">A</span>gregar método de pago
+            </button> 
+          </div>
+          <div class="col-12 d-grid">
+            <button class="btn btn-primary bg-primary py-2 text-lowercase" type="submit" id="submit-transaction"> <span class="text-uppercase">E</span>nviar</button>
+          </div>
+        </form>
+      </div>
+      <!-- Modal -->
       <section id="payment">             
         <div class="modal fade " id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
           <div class="modal-dialog">
@@ -210,7 +218,7 @@
 
                   <div class="tab-content" id="myTabContent">
                     <!-- Tarjeta de credito -->
-                    <div class="tab-pane fade show active" id="visa" role="tabpanel" aria-labelledby="visa-tab">
+                    <form action="" class="tab-pane fade show active needs-validation" id="visa" role="tabpanel" aria-labelledby="visa-tab" novalidate>
                       <div class="mt-4 mx-4">
                         <div class="text-center">
                           <h5>Tarjeta de crédito</h5>
@@ -236,7 +244,7 @@
                               <div class="d-flex flex-row ">
                                 <div class="row">
                                   <div class="form-group col-md-6 mt-4">
-                                    <label for="expiration-date">Vencimiento</label>
+                                    <label for="expiration-date">Fecha de Vencimiento</label>
                                     <input type="text" class="form-control mb-0" id="expiration-date" placeholder="MM/YY" required maxlength="5" inputmode="numeric">
                                     <div class="invalid-feedback">
                                         Ingrese una fecha válida.
@@ -245,7 +253,7 @@
     
                                   <div class="form-group col-md-6 mt-4">
                                     <label for="cvv">CVV</label>
-                                    <input type="text" class="form-control mb-0" id="cvv" pattern="[0-9]{3}" oninput="validateNumberInput(this)" placeholder="XXX" required maxlength="3" inputmode="numeric">
+                                    <input type="text" class="form-control mb-0" id="cvv" placeholder="XXX" required maxlength="3" inputmode="numeric">
                                     <div class="invalid-feedback">
                                         Ingrese un CVV válido.
                                     </div>
@@ -258,42 +266,45 @@
                           <button id="submit-card" class="btn btn-success btn-block">Continuar</button>
                         </div>
                       </div>
-                    </div>
-
+                    
+                    </form>
+                    
                     <!-- Transferencia bancaria -->
-                    <div class="tab-pane fade" id="transferencia" role="tabpanel" aria-labelledby="transferencia-tab">
-
-                      <div class="mt-4 mx-4">
-                        <div class="text-center">
-                          <h5>Transferencia bancaria</h5>
-                        </div>
-                        <div class="form mt-4 mt-4">
-                          <div class="mb-3">
-                            <select id="formCardName" class="form-control mb-0" required="required">
-                              <option value="" disabled selected>Selecciona una institución bancaria</option>
-                                <option value="opcion1">BROU</option>
-                                <option value="opcion2">Santander</option>
-                                <option value="opcion3">Scotia Bank</option>
-                                <option value="opcion4">HSBC</option>
-                            </select>
-                            <div class="invalid-feedback">
-                              Ingrese un Banco Valido
+                    <form action="" class="tab-pane fade needs-validation" id="transferencia" role="tabpanel" aria-labelledby="transferencia-tab" novalidate>
+              
+  
+                        <div class="mt-4 mx-4">
+                          <div class="text-center">
+                            <h5>Transferencia bancaria</h5>
+                          </div>
+                          <div class="form mt-4 mt-4">
+                            <div class="mb-3">
+                              <select id="formCardName" class="form-control mb-0" required="required">
+                                <option value="" disabled selected>Selecciona una institución bancaria</option>
+                                  <option value="opcion1">BROU</option>
+                                  <option value="opcion2">Santander</option>
+                                  <option value="opcion3">Scotia Bank</option>
+                                  <option value="opcion4">HSBC</option>
+                              </select>
+                              <div class="invalid-feedback">
+                                Ingrese un Banco Valido
+                              </div>
+                            </div>
+                            <div class="form-group mt-4">
+                              <label for="account-number">Número de Cuenta</label>
+                              <input type="text" class="form-control mb-0" id="account-number" placeholder="XXXX-XXXX-XXXX" required maxlength="12" inputmode="numeric">
+                              <div class="invalid-feedback">
+                                  Ingrese un número de cuenta valido.
+                              </div>
+                            </div>
+                            <div class="px-5 pay mt-4 w-100">
+                              <button id="submit-account" class="btn btn-success btn-block">Continuar</button>
+                            </div>
                             </div>
                           </div>
-                          <div class="form-group mt-4">
-                            <label for="account-number">Número de Cuenta</label>
-                            <input type="text" class="form-control mb-0" id="account-number" placeholder="XXXX-XXXX-XXXX" required maxlength="12" inputmode="numeric">
-                            <div class="invalid-feedback">
-                                Ingrese un número de cuenta valido.
-                            </div>
-                          </div>
-                          <div class="px-5 pay mt-4 w-100">
-                            <button id="submit-account" class="btn btn-success btn-block">Continuar</button>
-                          </div>
-                          </div>
                         </div>
-                      </div>
-                    </div>
+                      
+                    </form>
                   </div>
                 </div>
               </div>
@@ -301,11 +312,6 @@
           </div>
         </div>
       </section>
-          <div class="col-12 d-grid">
-            <button class="btn btn-primary bg-primary py-2 text-lowercase" type="submit" id="submit-transaction"> <span class="text-uppercase">E</span>nviar</button>
-          </div>
-        </form>
-       </div>
     </div>
     
   </main>
