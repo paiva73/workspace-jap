@@ -161,7 +161,7 @@ function showDataCost() {
   total.innerText = `USD ${funcSubtotal() + funcShippingCost()}`;
 }
 
-let contador = 0;
+
 (() => {
   'use strict'
   const modal = document.getElementById('payment');
@@ -199,6 +199,17 @@ let contador = 0;
           });
       
           setTimeout(() => {location.reload()}, 2000);
+      } else if(!form1.checkValidity() && !form2.checkValidity()) {
+        event.preventDefault();
+        event.stopPropagation();
+        Toastify({
+          text: "Debes agregar método de pago",
+          duration: 1500,
+          position: 'center',
+          style: {
+            background: "#C82333"
+          }
+          }).showToast();
       } else {
         event.preventDefault();
         event.stopPropagation();
