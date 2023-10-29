@@ -38,8 +38,8 @@
     -webkit-appearance: none;
     appearance: none;
     margin: 0;
-}
-    
+    }
+
     .launch {
         height: 50px;
     }
@@ -50,7 +50,14 @@
     }
     
     .modal-body {
-        height: 450px;
+        height: 37.5;
+    }
+
+    
+    @media (max-width: 768px) {
+        .modal-body {
+            height: 47rem; /* Ajusta la altura según tus necesidades */
+        }
     }
     
     .nav-tabs {

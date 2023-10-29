@@ -62,7 +62,7 @@ function showCartArticles(articles) {
                         <h6 class="mb-0">${article.currency} <span id="unity${article.id}">${article.unitCost || article.cost}</span></h6>
                       </div>
                       <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                      <a onclick="removeFromCart('${article.id}')" href="#!" class="text-muted"><i class="fas fa-times" ></i></a>
+                      <a onclick="removeFromCart('${article.id}')" href="#!" class="text-muted"><i class="bi bi-trash btn btn-outline-danger" ></i></a>
                       </div>
                     </div>
   `
@@ -98,6 +98,8 @@ function funDown(item) {
  showDataCost();
 }
 
+
+
 //Función que borra un producto del carrito.
 function removeFromCart(articleId) {
   const articleElement = document.getElementById(articleId);
@@ -108,9 +110,13 @@ function removeFromCart(articleId) {
       let indice = productsInCart.indexOf(product);
       productsInCart.splice(indice, 1);
       localStorage.setItem('productsInCart', JSON.stringify(productsInCart));
+      showDataCost()
+
     }
   }
 }
+
+
 const subtotal = document.getElementById('subtotal');
 const shippingCost = document.getElementById('costoEnvio');
 const total = document.getElementById('total');
@@ -155,95 +161,131 @@ function showDataCost() {
   total.innerText = `USD ${funcSubtotal() + funcShippingCost()}`;
 }
 
-//Payment Modal
-
-//Restriccion del input Nombre del titular
-function validateName(name) {
-  var regex = /^[A-Za-zÁáÉéÍíÓóÚúÜüÑñ\s]+$/;       // Expresión regular que permite solo letras (mayúsculas o minúsculas).
-
-  if (!regex.test(name.value)) {                   // Si el valor no cumple con la restricción... 
-
-    name.value = name.value.slice(0, -1);          //...se borra el último carácter ingresado.
-  }
-}
-
-//Restriccion del input Tarjeta de credito (Máscara)
-$(document).ready(function() {
-  $('#formCardNumber').inputmask('9999 9999 9999 9999');
-});
-
-//Ocultar numero de tarjeta de credito
-document.addEventListener('DOMContentLoaded', function() {
-  const cardNumberInput = document.getElementById('formCardNumber');
-  const hideNumberIcon = document.getElementById('hideNumber');
-
-  hideNumberIcon.addEventListener('click', function() {
-    if (cardNumberInput.type === 'password') {
-      cardNumberInput.type = 'text';
-      hideNumberIcon.innerHTML = '<i class="fa fa-eye"></i>';
-    } else {
-      cardNumberInput.type = 'password';
-      hideNumberIcon.innerHTML = '<i class="fa fa-eye-slash"></i>';
-    }
-  });
-});
-
-//Restriccion del input fecha mm/aa
-document.addEventListener('DOMContentLoaded', function() {
-  const cardExpirationInput = document.getElementById('cardExpiration');
-
-  const maskOptions = {
-    mask: '00/00',
-    lazy: false, // No permite espacios en blanco hasta que se complete la máscara.
-  };
-
-  const mask = IMask(cardExpirationInput, maskOptions);
-
-  cardExpirationInput.addEventListener('input', function() {
-    if (mask.isComplete) {
-      cardExpirationInput.setCustomValidity('Ingrese una fecha válida en formato MM/AA');
-    } else {
-      cardExpirationInput.setCustomValidity('');
-    }
-  });
-});
-
-function validateNumberInput(input) {
-  input.value = input.value.replace(/\D/g, ''); // Remueve cualquier caractér que no sea numeral
-}
-
-//Ocultar numero de cuenta
-document.addEventListener('DOMContentLoaded', function() {
-  const accountNumberInput = document.getElementById('formAccountNumber');
-  const hideAccountIcon = document.getElementById('hideAccount');
-
-  hideAccountIcon.addEventListener('click', function() {
-    if (accountNumberInput.type === 'password') {
-      accountNumberInput.type = 'number';
-      hideAccountIcon.innerHTML = '<i class="fa fa-eye-slash"></i>';
-    } else {
-      accountNumberInput.type = 'password';
-      hideAccountIcon.innerHTML = '<i class="fa fa-eye"></i>';
-    }
-  });
-});
-
 
 (() => {
   'use strict'
+  const modal = document.getElementById('payment');
+  const form0 = document.getElementById('form0');
+  const form1 = document.getElementById('visa');
+  const form2 = document.getElementById('transferencia');
+  const select1 = document.getElementById('visa-tab');
+  const select2 = document.getElementById('transferencia-tab');
 
+  modal.addEventListener('click', function(event){
+    if (event.target === select1) {
+      form1.removeAttribute('disabled');
+      form2.setAttribute('disabled', true);
+    
+    } else if (event.target === select2) {
+      form2.removeAttribute('disabled');
+      form1.setAttribute('disabled', true);
+      
+    }
+  });
   // Fetch all the forms we want to apply custom Bootstrap validation styles to
-  const forms = document.querySelectorAll('.needs-validation')
-
+  const forms = document.querySelectorAll('.needs-validation');
+  
   // Loop over them and prevent submission
   Array.from(forms).forEach(form => {
     form.addEventListener('submit', event => {
-      if (!form.checkValidity()) {
-        event.preventDefault()
-        event.stopPropagation()
+      if((form1.checkValidity() || form2.checkValidity()) && form0.checkValidity()) {
+        event.preventDefault();
+        event.stopPropagation();
+        Swal.fire({
+          icon: 'success',
+          title: 'Su compra ha sido realizada con éxito!',
+          showConfirmButton: false,
+          timer: 1800
+          });
+      
+          setTimeout(() => {location.reload()}, 2000);
+      } else if(!form1.checkValidity() && !form2.checkValidity()) {
+        event.preventDefault();
+        event.stopPropagation();
+        Toastify({
+          text: "Debes agregar método de pago",
+          duration: 1500,
+          position: 'center',
+          style: {
+            background: "#C82333"
+          }
+          }).showToast();
+      } else {
+        event.preventDefault();
+        event.stopPropagation();
       }
 
-      form.classList.add('was-validated')
+      form0.classList.add('was-validated');
+      form.classList.add('was-validated');
     }, false)
   })
+  
 })()
+
+// Validación personalizada para el titular de tarjeta
+$('#card-holder-name').on('input', function() {
+  let cardHolderName = $(this).val();
+  if (/^[A-Za-z\s]+$/.test(cardHolderName)) {
+      $(this).removeClass('is-invalid').addClass('is-valid');
+  } else {
+      $(this).removeClass('is-valid').addClass('is-invalid');
+  }
+});
+
+// Validación personalizada para el número de tarjeta
+$('#card-number').on('input', function() {
+  let cardNumber = $(this).val();
+  if (/^\d{16}$/.test(cardNumber)) {
+      $(this).removeClass('is-invalid').addClass('is-valid');
+  } else {
+      $(this).removeClass('is-valid').addClass('is-invalid');
+  }
+});
+
+// Validación personalizada para la fecha de vencimiento
+$('#expiration-date').on('input', function() {
+  let expirationDate = $(this).val();
+  if (/^\d{2}\/\d{2}$/.test(expirationDate)) {
+      $(this).removeClass('is-invalid').addClass('is-valid');
+  } else {
+      $(this).removeClass('is-valid').addClass('is-invalid');
+  }
+});
+
+// Validación personalizada para el CVV
+$('#cvv').on('input', function() {
+  let cvv = $(this).val();
+  if (/^\d{3}$/.test(cvv)) {
+      $(this).removeClass('is-invalid').addClass('is-valid');
+  } else {
+      $(this).removeClass('is-valid').addClass('is-invalid');
+  }
+});
+
+// Añadir el carácter "/" automáticamente a la fecha de vencimiento
+$('#expiration-date').on('input', function() {
+  let value = $(this).val();
+  if (value.length === 2 && value.indexOf('/') === -1) {
+      $(this).val(value + '/');
+  }
+});
+
+//validacion del banco
+$('#formCardName').on('change', function() {
+  let selectedOption = $(this).val();
+  if (selectedOption !== "") {
+    $(this).removeClass('is-invalid').addClass('is-valid');
+  } else {
+    $(this).removeClass('is-valid').addClass('is-invalid');
+  }
+});
+
+// Validacion del numero de cuenta
+$('#account-number').on('input', function() {
+  let accountNumber = $(this).val();
+  if (/^\d{12}$/.test(accountNumber)) {
+      $(this).removeClass('is-invalid').addClass('is-valid');
+  } else {
+      $(this).removeClass('is-valid').addClass('is-invalid');
+  }
+});
