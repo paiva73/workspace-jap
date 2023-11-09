@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
   <!-- Mi CSS -->
   <link rel="stylesheet" href="css/my-profile.css">
+
 </head>
 
 <body>
@@ -42,57 +43,81 @@
       </div>
     </div>
   </nav>
-
-
-
   <main>
     <div class="container ">
       <h1 class="py-4 text-center">Perfil</h1>
       <div class="row">
-        <div class="col-12 col-lg-4 d-flex flex-column justify-content-center align-items-center">
-              <img class="img-account-profile rounded-circle mb-2 border border-dark img-fluid d-md-none d-lg-block w-50"
-                src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="">
+        <div class="col-12 col-lg-4 d-flex flex-column justify-content-center align-items-center" id="divImg">
 
-                <img class="img-account-profile rounded-circle mb-2 border border-dark img-fluid d-none d-md-block d-lg-none w-25"
-                src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="">
 
-              
-                
-              <form action="upload.php" method="post" class="text-center ">
-                <label for="profile_picture" class="btn text-light bg-primary py-2">Subir foto</label>
-                <input type="file" name="profile_picture" id="profile_picture" class="d-none">
-              </form>
+          <input type="file" name="profile_picture" id="profile_picture" class="d-none"
+            accept="image/png, .jpeg, .jpg, image" onchange="loadFile(event)">
+
+          <img
+            class="img-account-profile rounded-circle mb-2 border border-dark img-fluid d-md-none d-lg-block w-50 photo2"
+            src="http://bootdey.com/img/Content/avatar/avatar1.png" id="output" width="200" />
+
+          <input type="file" name="profile_picture" id="profile_picture" class="d-none"
+            accept="image/png, .jpeg, .jpg, image" onchange="loadFile(event)">
+
+          <img
+            class="img-account-profile rounded-circle mb-2 border border-dark  btn-outline-info img-fluid d-none d-md-block d-lg-none w-25 photo"
+            src="http://bootdey.com/img/Content/avatar/avatar1.png" id="output2" width="200" />
+
+
+          <form action="upload.php" method="post" class="text-center">
+            <label for="profile_picture" class="btn text-light bg-warning">Subir foto</label>
+            <input type="file" name="profile_picture" id="profile_picture" class="d-none">
+          </form>
         </div>
 
-        <div class="col-12 col-lg-8 ">
+        <form class="col-12 col-lg-8 needs-validation" novalidate>
           <h5 class="p-2 border-bottom">Datos de la cuenta</h5>
           <div class="mb-4 py-2">
+
             <div class="row">
-              <label for="floatingInput" class="text-muted pt-2 col-6">Primer nombre*
+              <div class=" has-validation pt-2 col-6">
+                <label for="floatingInput" class="text-muted w-100 ">Primer nombre*</label>
+                  <input type="text" class="form-control" aria-describedby="inputGroupPrepend" required>
+                <div class="invalid-feedback">
+                  Falta primer nombre
+                </div>
+              </div>
+
+              <label for="floatingInput" class="text-muted pt-2 col-6">Segundo nombre
                 <input type="text" class="form-control">
               </label>
-              <label for="floatingInput" class="text-muted pt-2 col-6">Segundo nombre
-              <input type="text" class="form-control">
-            </label>
             </div>
+
             <div class="row">
-              <label for="floatingInput" class="text-muted pt-2 col-6">Primer apellido*
-              <input type="text" class="form-control">
-            </label>
+              <div class="has-validation pt-2 col-6">
+                <label for="lastName" class="text-muted w-100">Primer apellido*</label>
+                <input id="lastName" type="text" class="form-control" aria-describedby="inputGroupPrepend" required>
+                <div class="invalid-feedback">
+                  Falta primer apellido
+                </div>
+              </div>
               <label for="floatingInput" class="text-muted pt-2 col-6">Segundo apellido
                 <input type="text" class="form-control">
               </label>
             </div>
+
             <div class="row">
-              <label for="floatingInput" class="text-muted pt-2 col-6">E-mail*
-              <input type="email" class="form-control">
-            </label>
+              <div class="has-validation pt-2 col-6">
+                <label for="email" class="text-muted w-100">Email*</label>
+                <input id="email" type="email" class="form-control" aria-describedby="inputGroupPrepend" required>
+                <div class="invalid-feedback">
+                  Falta correo electrónico
+                </div>
+              </div>
               <label for="floatingInput" class="text-muted pt-2 col-6">Teléfono de contácto
                 <input type="number" class="form-control">
               </label>
             </div>
+            </div>
+            <button type="submit" class="btn py-2 text-light bg-success col-12" id="btnSend">Guardar cambios</button>
           </div>
-        </div>
+        </form>
       </div>
     </div>
     </div>

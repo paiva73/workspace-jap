@@ -24,3 +24,13 @@ input[type=number] {
   }
 }
 
+.photo2{
+  max-width: 150px; 
+  height: 150px;
+}
+
+.photo{
+  max-width: 175px; 
+  height: 175px;
+}
+
