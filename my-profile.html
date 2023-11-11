@@ -77,28 +77,28 @@
 
             <div class="row">
               <div class=" has-validation pt-2 col-6">
-                <label for="floatingInput" class="text-muted w-100 ">Primer nombre*</label>
-                  <input type="text" class="form-control" aria-describedby="inputGroupPrepend" required>
+                <label for="nombre" class="text-muted w-100 ">Primer nombre*</label>
+                  <input type="text" class="form-control" aria-describedby="inputGroupPrepend" required id="nombre">
                 <div class="invalid-feedback">
                   Falta primer nombre
                 </div>
               </div>
 
-              <label for="floatingInput" class="text-muted pt-2 col-6">Segundo nombre
-                <input type="text" class="form-control">
+              <label for="segundoNombre" class="text-muted pt-2 col-6">Segundo nombre
+                <input type="text" class="form-control" id="segundoNombre">
               </label>
             </div>
 
             <div class="row">
               <div class="has-validation pt-2 col-6">
-                <label for="lastName" class="text-muted w-100">Primer apellido*</label>
-                <input id="lastName" type="text" class="form-control" aria-describedby="inputGroupPrepend" required>
+                <label for="apellido" class="text-muted w-100">Primer apellido*</label>
+                <input type="text" class="form-control" aria-describedby="inputGroupPrepend" required id="apellido">
                 <div class="invalid-feedback">
                   Falta primer apellido
                 </div>
               </div>
-              <label for="floatingInput" class="text-muted pt-2 col-6">Segundo apellido
-                <input type="text" class="form-control">
+              <label for="segundoApellido" class="text-muted pt-2 col-6">Segundo apellido
+                <input type="text" class="form-control" id="segundoApellido">
               </label>
             </div>
 
@@ -110,8 +110,8 @@
                   Falta correo electrónico
                 </div>
               </div>
-              <label for="floatingInput" class="text-muted pt-2 col-6">Teléfono de contácto
-                <input type="number" class="form-control">
+              <label for="contacto" class="text-muted pt-2 col-6">Teléfono de contácto
+                <input type="number" class="form-control" id="contacto">
               </label>
             </div>
             </div>
@@ -144,6 +144,7 @@
     </div>
     </div>
   </footer>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="js/init.js"></script>
   <script src="js/my-profile.js"></script>
