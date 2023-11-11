@@ -3,6 +3,11 @@ document.addEventListener('DOMContentLoaded', () => {
   if(imgLocal != '' && imgLocal != null && imgLocal != undefined ){
     profileImg();
   }
+
+  const emailUsuario = JSON.parse(localStorage.getItem('datosUsuario'));
+
+  const email = document.getElementById('email');
+  email.value = emailUsuario.username;
 })
 
 function profileImg(){
@@ -47,6 +52,8 @@ function loadFile(event) {
       }, false)
     })
 })()
+
+
   
 
 
