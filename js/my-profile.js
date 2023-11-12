@@ -44,13 +44,12 @@ function loadFile(event) {
   localStorage.setItem('urlImg', JSON.stringify(urlImg));
 }
 
-
 // Example starter JavaScript for disabling form submissions if there are invalid fields
 (function () {
   'use strict'
 
   // Fetch all the forms we want to apply custom Bootstrap validation styles to
-  var forms = document.querySelectorAll('.needs-validation')
+  let forms = document.querySelectorAll('.needs-validation');
 
   // Loop over them and prevent submission
   Array.prototype.slice.call(forms)
@@ -78,7 +77,6 @@ function loadFile(event) {
               contacto: document.getElementById('contacto').value,
             }
             localStorage.setItem('dataProfile', JSON.stringify(dataProfile));
-            
         }
 
         form.classList.add('was-validated')

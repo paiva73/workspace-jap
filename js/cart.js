@@ -2,6 +2,7 @@ const CART_INFO_UR = "https://japceibal.github.io/emercado-api/user_cart/25801.j
 const cartContainer = document.getElementById("containerArticles");
 const productsInCart = JSON.parse(localStorage.getItem('productsInCart')) || [];
 
+//Event listener para mostrar los articulos y event listener de botones al cargar la página
 document.addEventListener("DOMContentLoaded", () => {
   getAndShowCartArticles(CART_INFO_UR);
   premium.addEventListener('click', showDataCost);
@@ -9,6 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
   estandar.addEventListener('click', showDataCost);
 })
 
+//Fetch para traer el artículo que nos brindan del endpoint
 async function getAndShowCartArticles(url){
   try { 
       const response = await fetch(url);
@@ -31,6 +33,7 @@ async function getAndShowCartArticles(url){
   }
 }
 
+//Función que muestra los artículo del cart
 function showCartArticles(articles) {
   for (const article of articles) {
     cartContainer.innerHTML += `
@@ -98,8 +101,6 @@ function funDown(item) {
  showDataCost();
 }
 
-
-
 //Función que borra un producto del carrito.
 function removeFromCart(articleId) {
   const articleElement = document.getElementById(articleId);
@@ -111,12 +112,11 @@ function removeFromCart(articleId) {
       productsInCart.splice(indice, 1);
       localStorage.setItem('productsInCart', JSON.stringify(productsInCart));
       showDataCost()
-
     }
   }
 }
 
-
+//Variables donde almacenamos los elementos HTML a utilizar proximamente
 const subtotal = document.getElementById('subtotal');
 const shippingCost = document.getElementById('costoEnvio');
 const total = document.getElementById('total');
@@ -133,6 +133,7 @@ function converterToUSD(product) {
   return costInUSD;
 }
 
+//Función para calcular el subtotal
 function funcSubtotal() {
   let subtotal = 0;
   productsInCart.forEach(product => {
@@ -142,6 +143,7 @@ function funcSubtotal() {
   });
   return parseInt(subtotal);
 }
+
 //Funcion para obtener el costo del envío.
 function funcShippingCost() {
   let costEnvio;
@@ -154,6 +156,7 @@ function funcShippingCost() {
   }
   return parseInt(costEnvio);
 }
+
 //Funcion para obtener el costo del envío.
 function showDataCost() {
   subtotal.innerText = `USD ${funcSubtotal()}`
@@ -161,7 +164,7 @@ function showDataCost() {
   total.innerText = `USD ${funcSubtotal() + funcShippingCost()}`;
 }
 
-
+//IIFE que valida el form y modal
 (() => {
   'use strict'
   const modal = document.getElementById('payment');
@@ -182,6 +185,7 @@ function showDataCost() {
       
     }
   });
+
   // Fetch all the forms we want to apply custom Bootstrap validation styles to
   const forms = document.querySelectorAll('.needs-validation');
   
