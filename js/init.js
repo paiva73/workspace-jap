@@ -39,6 +39,7 @@ let getJSONData = function(url){
         return result;
     });
 }
+
 //Función que verifica si existe un usuario registrado.
 const dataExists = JSON.parse(localStorage.getItem('datosUsuario'));
 function verifyExistence(){
@@ -46,7 +47,9 @@ function verifyExistence(){
       window.location.href = "login.html"
   }
 }
+
 verifyExistence();
+
 //Función que genera el dropdown del usuario.
 function createDropDown(){
   const navbarUserElement = document.getElementById('navbarUser');
@@ -64,10 +67,12 @@ function createDropDown(){
     </div>`;
   }
 }
+
 //Función asociada al botón "Cerrar sesión". Borra el usuario del local storage.
 function signOff() {
   localStorage.removeItem('datosUsuario');
 }
+
 //Escucha del evento DOMContentLoaded para traer la configuración de color guardada en local storage.
 document.addEventListener("DOMContentLoaded", () => {
   const savedTheme = localStorage.getItem('theme');
@@ -102,6 +107,7 @@ function changeNavbarColor(theme) {
     navLight.classList.remove('bg-bootrstrap');
   }
 }
+
 //Función que cambia estilos de los botones.
 function changeButtonsColor(theme){
   if(theme == 'dark'){
@@ -115,7 +121,6 @@ function changeButtonsColor(theme){
       iterator.classList.add('btn-light');
     }
   }
-  
 }
 
 //Función que cambia estilos de los form-label.
@@ -161,7 +166,6 @@ function changeimgColor(theme){
   }
 }
 
-
 //Función que cambia el ícono.
 function changeIcon(theme) {
   let iconModo = document.getElementById('icon');
@@ -173,12 +177,15 @@ function changeIcon(theme) {
     iconModo.classList.add("bi-moon-fill");
   }
 }
+
 //Función asociada al ícono "sol/luna". Cambia de modo(oscuro/claro).
 function changeMode() {
   let bodyElement = document.querySelector('body');
   let newTheme = bodyElement.getAttribute('data-bs-theme') === 'dark' ? 'light' : 'dark';
+
   bodyElement.setAttribute('data-bs-theme', newTheme);
   localStorage.setItem('theme', newTheme);
+  
   changeButtonsColor(newTheme);
   changeNavbarColor(newTheme);
   changeIcon(newTheme);

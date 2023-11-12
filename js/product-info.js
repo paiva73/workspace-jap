@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
     getAndShowRelationProducts(API_URL_PRODUCTS);
     getAndShowComments(API_URL_COMMENTS);
 })
+
 //Función asíncrona que muestra la card generada del producto, utilizando el endpoint del producto pertinente.
 async function getAndShowProductsInfo(url) {
     try {
@@ -29,6 +30,7 @@ async function getAndShowProductsInfo(url) {
         console.log(error);
     }
 }
+
 //Función que genera la "card" del producto.
 function showProduct(product) {
   console.log(product);
@@ -122,6 +124,7 @@ async function getAndShowComments(url) {
       console.log(error);
   }
 }
+
 //Función que genera las cards con los producto comentarios.
 function showComments(dataComments) {
   //Ordeno el array para mostrar los comentarios por fecha.
@@ -131,6 +134,7 @@ function showComments(dataComments) {
     let dateB = new Date(b.dateTime);
     return dateA - dateB;
 });
+
 //Muestro los comentarios.
   for (const comment of dataComments) {
   containerComments.innerHTML += ` 
@@ -143,6 +147,7 @@ function showComments(dataComments) {
   `
   }
 }
+
 //Función para mostrar los comentarios creados por el usuario incluso al reiniciar la página.
 function existingComments(){
   for (const comment of comments) {
@@ -151,6 +156,7 @@ function existingComments(){
     }
   }
 }
+
 //Función para agregar nuevos comentarios.
 function addComment() {
   const comment = document.getElementById("comment");
@@ -188,6 +194,7 @@ function showStars(quantity){
   }
   return stars;
 }
+
 //Función asíncrona que muestra las cards de los productos relacionados, utilizando el endpoint de los productos.
 async function getAndShowRelationProducts(url) {
   try {
@@ -201,11 +208,13 @@ async function getAndShowRelationProducts(url) {
       console.log(error);
   }
 }
+
 //Función para pushear el id del producto al localStorage y redirigir a su respectiva página.
 function setProductID(id) {      
   localStorage.setItem("productID", id);
   window.location = "product-info.html"
 }
+
 //Función productos relacionados
 function showRelatedProducts(products){
   let contador = 0;
@@ -224,6 +233,7 @@ function showRelatedProducts(products){
           }
       }
 }
+
 //Función que añade productos al carrito.
 function addToCart(product) {
   if(productsInCart.some(item => item.id === product.id)){
