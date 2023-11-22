@@ -1,0 +1,65 @@
+body {
+    background-color: white;
+}
+
+#divLogin{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20vh;
+}
+
+img{
+    width: 20%;
+    height: 20%; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 3%;
+    
+}
+
+#divPadre{
+    padding-top: 4%;
+}
+
+#botonlogin{
+    width: 200px;
+    height: 38px;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: rgb(240, 145, 0);
+    border-radius: 5px ;
+}
+
+.camposlogin {
+    padding: 6%;
+    margin-top: 3%;
+    margin-bottom: 5%;
+    width: 200px;
+    height: 38px;
+    font-size: 15px;
+    border-radius: 5px;
+}
+
+/* A partir de aca situo el ojito en el input de password */
+
+.password-container {
+    position: relative;
+  }
+
+#passInput {
+    padding-right: 30px;
+  }
+
+  #togglePassword {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+
